@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlantic Coast Tours | Luxury West of Ireland Experiences</title>
+  <meta name="description" content="Discover the Wild Atlantic Way with curated luxury tours along Ireland's dramatic west coast. Cliffs, islands, food & adventure.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --navy:#0a1628;--navy-light:#111d33;--navy-mid:#162240;
+      --gold:#c9a84c;--gold-light:#dfc06a;--gold-dim:rgba(201,168,76,.15);
+      --teal:#2a9d8f;--teal-dim:rgba(42,157,143,.12);
+      --cream:#f5f0e8;--cream-dim:rgba(245,240,232,.08);
+      --white:#ffffff;--text:#e8e4dc;--text-dim:rgba(232,228,220,.55);
+      --danger:#e76f51;--danger-dim:rgba(231,111,81,.12);
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:var(--navy);color:var(--text);overflow-x:hidden;line-height:1.6}
+    h1,h2,h3,h4{font-family:'Playfair Display',Georgia,serif;font-weight:600;color:var(--cream)}
+    a{color:var(--gold);text-decoration:none;transition:color .3s}
+    a:hover{color:var(--gold-light)}
+
+    /* NAV */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;transition:all .4s}
+    .nav.scrolled{background:rgba(10,22,40,.95);backdrop-filter:blur(20px);padding:14px 48px;border-bottom:1px solid rgba(201,168,76,.1)}
+    .nav-logo{font-family:'Playfair Display',serif;font-size:22px;color:var(--cream);letter-spacing:.02em}
+    .nav-logo span{color:var(--gold)}
+    .nav-links{display:flex;gap:32px;align-items:center}
+    .nav-links a{font-size:13px;color:var(--text-dim);letter-spacing:.08em;text-transform:uppercase;font-weight:500;transition:color .3s}
+    .nav-links a:hover{color:var(--gold)}
+    .nav-cta{padding:10px 24px;border:1px solid var(--gold);color:var(--gold)!important;font-size:12px;letter-spacing:.1em;border-radius:2px;transition:all .3s}
+    .nav-cta:hover{background:var(--gold);color:var(--navy)!important}
+
+    /* HERO */
+    .hero{position:relative;height:100vh;min-height:700px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .hero-canvas{position:absolute;inset:0;z-index:1}
+    .hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1590012314607-cda9d9b699ae?w=1920&q=85') center/cover no-repeat;filter:brightness(.3) saturate(1.3);z-index:0}
+    .hero-gradient{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,22,40,.3) 0%,rgba(10,22,40,.1) 30%,rgba(10,22,40,.5) 70%,var(--navy) 100%);z-index:2}
+    .hero-content{position:relative;z-index:10;text-align:center;max-width:900px;padding:0 24px}
+    .hero-tag{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;font-weight:500;opacity:0;animation:heroFadeUp .8s .3s forwards}
+    .hero-title{font-size:clamp(44px,7vw,88px);line-height:1.05;margin-bottom:24px;color:var(--cream);opacity:0;animation:heroFadeUp .8s .5s forwards}
+    .hero-title em{font-style:italic;color:var(--gold);font-weight:400}
+    .hero-sub{font-size:18px;color:var(--text-dim);max-width:560px;margin:0 auto 44px;font-weight:300;line-height:1.7;opacity:0;animation:heroFadeUp .8s .7s forwards}
+    .hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;opacity:0;animation:heroFadeUp .8s .9s forwards}
+    @keyframes heroFadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    .hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:heroFadeUp .8s 1.2s forwards}
+    .hero-scroll span{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim)}
+    .hero-scroll-line{width:1px;height:40px;background:linear-gradient(180deg,var(--gold),transparent);animation:scrollPulse 2s infinite}
+    @keyframes scrollPulse{0%,100%{opacity:.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.3)}}
+
+    /* BUTTONS */
+    .btn-primary{padding:14px 36px;background:var(--gold);color:var(--navy);font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;transition:all .3s;font-family:'Inter',sans-serif;position:relative;overflow:hidden}
+    .btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transform:translateX(-100%);transition:transform .6s}
+    .btn-primary:hover::after{transform:translateX(100%)}
+    .btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(201,168,76,.3)}
+    .btn-secondary{padding:14px 36px;background:transparent;border:1px solid rgba(245,240,232,.25);color:var(--cream);font-weight:500;font-size:13px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .3s;font-family:'Inter',sans-serif}
+    .btn-secondary:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.05)}
+
+    /* WEATHER */
+    .weather-bar{background:var(--navy-light);border-bottom:1px solid rgba(201,168,76,.08);padding:16px 48px;display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap}
+    .weather-item{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-dim)}
+    .weather-item .wi-icon{font-size:20px}
+    .weather-item .wi-val{color:var(--cream);font-weight:500}
+    .weather-item .wi-label{font-size:11px;color:var(--text-dim);letter-spacing:.05em}
+
+    /* SECTIONS */
+    section{padding:100px 48px}
+    .section-tag{font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;font-weight:500}
+    .section-title{font-size:clamp(28px,3.5vw,48px);margin-bottom:16px}
+    .section-sub{font-size:15px;color:var(--text-dim);max-width:560px;font-weight:300;line-height:1.7}
+
+    /* STATS */
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding:80px 48px;border-top:1px solid rgba(201,168,76,.08);border-bottom:1px solid rgba(201,168,76,.08)}
+    .stat{text-align:center}
+    .stat-num{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);color:var(--gold);font-weight:700}
+    .stat-label{font-size:12px;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+
+    /* TOURS */
+    .tours-filter{display:flex;gap:12px;margin:40px 0 32px;flex-wrap:wrap}
+    .filter-btn{padding:8px 20px;border:1px solid rgba(201,168,76,.15);background:transparent;color:var(--text-dim);font-size:12px;letter-spacing:.06em;cursor:pointer;transition:all .3s;font-family:'Inter',sans-serif;border-radius:2px}
+    .filter-btn.active,.filter-btn:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-dim)}
+    .tours-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
+    .tour-card{background:var(--navy-light);border:1px solid rgba(201,168,76,.06);border-radius:8px;overflow:hidden;transition:all .4s;cursor:pointer}
+    .tour-card:hover{transform:translateY(-6px);border-color:rgba(201,168,76,.2);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+    .tour-card-img{height:200px;background-size:cover;background-position:center;position:relative;overflow:hidden}
+    .tour-card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(10,22,40,.8) 100%)}
+    .tour-card-badge{position:absolute;top:14px;left:14px;padding:5px 12px;background:var(--gold);color:var(--navy);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:2px;z-index:2}
+    .tour-card-offer{position:absolute;top:14px;right:14px;padding:5px 12px;background:var(--danger);color:var(--white);font-size:10px;font-weight:600;letter-spacing:.05em;border-radius:2px;z-index:2}
+    .tour-card-body{padding:24px}
+    .tour-card-cat{font-size:10px;color:var(--teal);letter-spacing:.12em;text-transform:uppercase;font-weight:500;margin-bottom:8px}
+    .tour-card-name{font-family:'Playfair Display',serif;font-size:19px;color:var(--cream);margin-bottom:8px;line-height:1.3}
+    .tour-card-loc{font-size:12px;color:var(--text-dim);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+    .tour-card-desc{font-size:13px;color:var(--text-dim);line-height:1.6;margin-bottom:16px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+    .tour-card-footer{display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid rgba(201,168,76,.06)}
+    .tour-price{font-family:'Playfair Display',serif;font-size:22px;color:var(--gold);font-weight:600}
+    .tour-price span{font-size:12px;color:var(--text-dim);font-family:'Inter',sans-serif;font-weight:400}
+    .tour-meta{display:flex;gap:16px;font-size:11px;color:var(--text-dim)}
+    .tour-meta span{display:flex;align-items:center;gap:4px}
+
+    /* FEATURES */
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:48px}
+    .feature{padding:36px;background:var(--navy-light);border:1px solid rgba(201,168,76,.06);border-radius:8px;transition:all .3s}
+    .feature:hover{border-color:rgba(201,168,76,.15);transform:translateY(-3px)}
+    .feature-icon{font-size:32px;margin-bottom:16px}
+    .feature-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--cream);margin-bottom:8px}
+    .feature-desc{font-size:13px;color:var(--text-dim);line-height:1.7}
+
+    /* TESTIMONIALS */
+    .testimonials{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;margin-top:48px}
+    .testimonial{padding:32px;background:var(--navy-light);border:1px solid rgba(201,168,76,.06);border-radius:8px}
+    .testimonial-stars{color:var(--gold);font-size:14px;margin-bottom:12px;letter-spacing:2px}
+    .testimonial-text{font-size:14px;color:var(--text);line-height:1.7;font-style:italic;margin-bottom:16px}
+    .testimonial-author{font-size:12px;color:var(--gold);font-weight:500}
+
+    /* FOOTER */
+    footer{padding:60px 48px 30px;border-top:1px solid rgba(201,168,76,.08);background:var(--navy-light)}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+    .footer-brand p{font-size:13px;color:var(--text-dim);line-height:1.7;margin-top:12px}
+    .footer-col h4{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;font-family:'Inter',sans-serif;font-weight:600}
+    .footer-col a{display:block;font-size:13px;color:var(--text-dim);margin-bottom:8px;transition:color .3s}
+    .footer-col a:hover{color:var(--gold)}
+    .footer-bottom{text-align:center;padding-top:24px;border-top:1px solid rgba(201,168,76,.06);font-size:11px;color:var(--text-dim)}
+
+    /* ========== CHATBOT ========== */
+    .chat-toggle{position:fixed;bottom:28px;right:28px;z-index:200;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#a07828);border:none;cursor:pointer;box-shadow:0 8px 32px rgba(201,168,76,.4);display:flex;align-items:center;justify-content:center;transition:all .3s}
+    .chat-toggle:hover{transform:scale(1.1);box-shadow:0 12px 40px rgba(201,168,76,.5)}
+    .chat-toggle svg{width:28px;height:28px;fill:var(--navy)}
+    .chat-toggle .chat-close{display:none}
+    .chat-toggle.open .chat-icon{display:none}
+    .chat-toggle.open .chat-close{display:block}
+    .chat-toggle .pulse-ring{position:absolute;width:100%;height:100%;border-radius:50%;border:2px solid var(--gold);animation:chatPulse 2s infinite}
+    @keyframes chatPulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.6);opacity:0}}
+    .chat-panel{position:fixed;bottom:104px;right:28px;z-index:199;width:420px;max-width:calc(100vw - 56px);height:600px;max-height:calc(100vh - 160px);background:var(--navy);border:1px solid rgba(201,168,76,.15);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;opacity:0;visibility:hidden;transform:translateY(20px) scale(.95);transition:all .4s cubic-bezier(.16,1,.3,1);box-shadow:0 24px 60px rgba(0,0,0,.5)}
+    .chat-panel.open{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+    .chat-header{padding:20px 24px;background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));border-bottom:1px solid rgba(201,168,76,.1);display:flex;align-items:center;gap:12px}
+    .chat-header-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#b08930);display:flex;align-items:center;justify-content:center;font-size:20px}
+    .chat-header-info h4{font-size:14px;color:var(--cream);font-family:'Inter',sans-serif;font-weight:600}
+    .chat-header-info p{font-size:11px;color:var(--teal);display:flex;align-items:center;gap:4px}
+    .chat-header-info p::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block;animation:statusPulse 2s infinite}
+    .chat-header-info p.loading{color:var(--danger)}
+    .chat-header-info p.loading::before{background:var(--danger)}
+    @keyframes statusPulse{0%,100%{opacity:1}50%{opacity:.4}}
+    .chat-messages{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:16px;scroll-behavior:smooth}
+    .chat-messages::-webkit-scrollbar{width:4px}
+    .chat-messages::-webkit-scrollbar-track{background:transparent}
+    .chat-messages::-webkit-scrollbar-thumb{background:rgba(201,168,76,.2);border-radius:4px}
+    .chat-msg{max-width:88%;animation:msgIn .3s ease-out}
+    @keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .chat-msg.bot{align-self:flex-start}
+    .chat-msg.user{align-self:flex-end}
+    .chat-msg-bubble{padding:12px 16px;border-radius:14px;font-size:13px;line-height:1.6}
+    .chat-msg.bot .chat-msg-bubble{background:var(--navy-light);border:1px solid rgba(201,168,76,.08);color:var(--text);border-bottom-left-radius:4px}
+    .chat-msg.user .chat-msg-bubble{background:linear-gradient(135deg,var(--gold),#b08930);color:var(--navy);border-bottom-right-radius:4px;font-weight:500}
+    .chat-msg-time{font-size:10px;color:var(--text-dim);margin-top:4px;padding:0 4px}
+    .chat-msg.user .chat-msg-time{text-align:right}
+    .chat-typing{display:flex;gap:4px;padding:12px 16px;background:var(--navy-light);border:1px solid rgba(201,168,76,.08);border-radius:14px;border-bottom-left-radius:4px;width:fit-content}
+    .chat-typing span{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:typing 1.4s infinite}
+    .chat-typing span:nth-child(2){animation-delay:.2s}
+    .chat-typing span:nth-child(3){animation-delay:.4s}
+    @keyframes typing{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
+    .chat-input-area{padding:16px 20px;background:var(--navy-light);border-top:1px solid rgba(201,168,76,.08);display:flex;gap:10px;align-items:center}
+    .chat-input{flex:1;padding:12px 16px;background:var(--navy);border:1px solid rgba(201,168,76,.1);border-radius:10px;color:var(--cream);font-size:13px;font-family:'Inter',sans-serif;outline:none;transition:border-color .3s}
+    .chat-input:focus{border-color:rgba(201,168,76,.3)}
+    .chat-input::placeholder{color:var(--text-dim)}
+    .chat-send{width:40px;height:40px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;flex-shrink:0}
+    .chat-send:hover{background:var(--gold-light);transform:scale(1.05)}
+    .chat-send svg{width:18px;height:18px;fill:var(--navy)}
+    .chat-suggestions{display:flex;flex-wrap:wrap;gap:6px;padding:0 20px 12px}
+    .chat-sug{padding:6px 12px;background:var(--navy-light);border:1px solid rgba(201,168,76,.1);border-radius:16px;font-size:11px;color:var(--text-dim);cursor:pointer;transition:all .3s;font-family:'Inter',sans-serif}
+    .chat-sug:hover{border-color:var(--gold);color:var(--gold)}
+    .chat-msg ul,.chat-msg ol{margin:8px 0;padding-left:18px}
+    .chat-msg li{margin-bottom:4px}
+    .chat-msg strong{color:var(--gold)}
+    .chat-msg a{color:var(--teal);text-decoration:underline}
+
+    /* MOBILE */
+    @media(max-width:768px){
+      .nav{padding:16px 20px}
+      .nav.scrolled{padding:12px 20px}
+      .nav-links{display:none}
+      section{padding:60px 20px}
+      .stats{grid-template-columns:repeat(2,1fr);padding:40px 20px}
+      .features{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr 1fr}
+      .weather-bar{padding:12px 20px;gap:16px}
+      .chat-panel{right:12px;bottom:88px;width:calc(100vw - 24px);height:calc(100vh - 120px)}
+      .chat-toggle{bottom:20px;right:20px}
+      .tours-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <div class="nav-logo">Atlantic Coast <span>Tours</span></div>
+  <div class="nav-links">
+    <a href="#tours">Tours</a>
+    <a href="#why">Why Us</a>
+    <a href="#weather">Weather</a>
+    <a href="#testimonials">Reviews</a>
+    <a class="nav-cta" href="mailto:hello@atlanticcoasttours.ie">Book Now</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="heroSection">
+  <div class="hero-bg" id="heroBg"></div>
+  <canvas class="hero-canvas" id="heroCanvas"></canvas>
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Wild Atlantic Way &middot; West of Ireland</div>
+    <h1 class="hero-title">Where the Ocean<br>Meets <em>Adventure</em></h1>
+    <p class="hero-sub">Curated luxury experiences along Ireland's most dramatic coastline. Cliffs, islands, wild food and ancient trails.</p>
+    <div class="hero-btns">
+      <a href="#tours"><button class="btn-primary">Explore Tours</button></a>
+      <a href="#weather"><button class="btn-secondary">Live Weather</button></a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Scroll</span><div class="hero-scroll-line"></div></div>
+</section>
+
+<!-- WEATHER -->
+<div class="weather-bar" id="weather">
+  <div class="weather-item">
+    <span class="wi-icon" id="wIcon">--</span>
+    <div><div class="wi-val" id="wTemp">--°C</div><div class="wi-label">Galway Now</div></div>
+  </div>
+  <div class="weather-item">
+    <span class="wi-icon">💨</span>
+    <div><div class="wi-val" id="wWind">-- km/h</div><div class="wi-label">Wind</div></div>
+  </div>
+  <div class="weather-item">
+    <span class="wi-icon">💧</span>
+    <div><div class="wi-val" id="wHumid">--%</div><div class="wi-label">Humidity</div></div>
+  </div>
+  <div class="weather-item">
+    <span class="wi-icon">🌧️</span>
+    <div><div class="wi-val" id="wRain">--%</div><div class="wi-label">Rain Chance</div></div>
+  </div>
+  <div class="weather-item">
+    <span class="wi-icon">📅</span>
+    <div><div class="wi-val" id="wForecast">--</div><div class="wi-label">5-Day Outlook</div></div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="stat-num" id="statTours">30</div><div class="stat-label">Curated Tours</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Counties</div></div>
+  <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Happy Guests</div></div>
+  <div class="stat"><div class="stat-num">4.9</div><div class="stat-label">Avg Rating</div></div>
+</div>
+
+<!-- TOURS -->
+<section id="tours">
+  <div class="section-tag">Our Experiences</div>
+  <h2 class="section-title">Explore the Wild Atlantic</h2>
+  <p class="section-sub">From cliff-top walks to island food tours, every experience is handpicked for authenticity and wonder.</p>
+  <div class="tours-filter" id="tourFilters">
+    <button class="filter-btn active" data-filter="all">All Tours</button>
+    <button class="filter-btn" data-filter="Cliff Walk">Cliff Walks</button>
+    <button class="filter-btn" data-filter="Kayak Trip">Kayaking</button>
+    <button class="filter-btn" data-filter="Food Tour">Food Tours</button>
+    <button class="filter-btn" data-filter="Outdoor Activity">Outdoor</button>
+    <button class="filter-btn" data-filter="Cycling">Cycling</button>
+    <button class="filter-btn" data-filter="Boat Tour">Boat Tours</button>
+  </div>
+  <div class="tours-grid" id="toursGrid"></div>
+</section>
+
+<!-- WHY US -->
+<section id="why" style="background:var(--navy-light)">
+  <div class="section-tag">Why Atlantic Coast Tours</div>
+  <h2 class="section-title">Not Just Tours. <em style="font-style:italic;color:var(--gold);font-weight:400">Memories.</em></h2>
+  <p class="section-sub">Every detail is considered so you can simply show up and be amazed.</p>
+  <div class="features">
+    <div class="feature"><div class="feature-icon">🌊</div><h3 class="feature-title">Local Expertise</h3><p class="feature-desc">Every guide is a local with deep knowledge of the land, stories, and hidden spots tourists never find.</p></div>
+    <div class="feature"><div class="feature-icon">🌿</div><h3 class="feature-title">Small Groups</h3><p class="feature-desc">Intimate group sizes mean personal attention, real connections, and experiences that feel private.</p></div>
+    <div class="feature"><div class="feature-icon">⭐</div><h3 class="feature-title">Premium Quality</h3><p class="feature-desc">Top-tier equipment, handpicked venues, and seamless logistics from pickup to drop-off.</p></div>
+    <div class="feature"><div class="feature-icon">🗺️</div><h3 class="feature-title">Wild Atlantic Way</h3><p class="feature-desc">We specialise in the west of Ireland — Galway, Clare, and Mayo — the most dramatic stretch of the coast.</p></div>
+    <div class="feature"><div class="feature-icon">🍽️</div><h3 class="feature-title">Wild Food</h3><p class="feature-desc">Oysters, seaweed, artisan cheese — taste the Atlantic through foraging walks and island food tours.</p></div>
+    <div class="feature"><div class="feature-icon">🚐</div><h3 class="feature-title">Door-to-Door</h3><p class="feature-desc">Pickup from your hotel or B&B. No stress, no parking, no maps — just adventure from the first minute.</p></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-tag">Guest Reviews</div>
+  <h2 class="section-title">What People Say</h2>
+  <div class="testimonials">
+    <div class="testimonial"><div class="testimonial-stars">★★★★★</div><p class="testimonial-text">"The Cliffs of Moher walk was incredible. Our guide knew every bird colony and shared stories we'd never find in a guidebook."</p><div class="testimonial-author">— Sarah M., London</div></div>
+    <div class="testimonial"><div class="testimonial-stars">★★★★★</div><p class="testimonial-text">"Kayaking Killary Fjord at sunset was the highlight of our entire Ireland trip. Absolutely magical."</p><div class="testimonial-author">— James K., New York</div></div>
+    <div class="testimonial"><div class="testimonial-stars">★★★★★</div><p class="testimonial-text">"The food tour in Galway was exceptional. We tasted things we didn't know existed. The oyster tasting alone was worth it."</p><div class="testimonial-author">— Emily R., Sydney</div></div>
+    <div class="testimonial"><div class="testimonial-stars">★★★★★</div><p class="testimonial-text">"Small group, personal attention, stunning scenery. This is how travel should be done."</p><div class="testimonial-author">— Marco P., Milan</div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><div class="nav-logo">Atlantic Coast <span>Tours</span></div><p>Curated luxury experiences along Ireland's Wild Atlantic Way. Based in Galway, exploring the west coast.</p></div>
+    <div class="footer-col"><h4>Tours</h4><a href="#tours">Cliff Walks</a><a href="#tours">Kayaking</a><a href="#tours">Food Tours</a><a href="#tours">Boat Tours</a></div>
+    <div class="footer-col"><h4>Explore</h4><a href="#tours">All Tours</a><a href="#weather">Live Weather</a><a href="#why">Why Us</a><a href="#testimonials">Reviews</a></div>
+    <div class="footer-col"><h4>Contact</h4><a href="mailto:hello@atlanticcoasttours.ie">hello@atlanticcoasttours.ie</a><a href="tel:+353911234567">+353 91 123 4567</a><a href="#">Spanish Arch, Galway</a></div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 Atlantic Coast Tours. All rights reserved.</div>
+</footer>
+
+<!-- CHATBOT -->
+<button class="chat-toggle" id="chatToggle" aria-label="Open chat">
+  <div class="pulse-ring"></div>
+  <svg class="chat-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/><path d="M7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/></svg>
+  <svg class="chat-close" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="var(--navy)"/></svg>
+</button>
+
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-header">
+    <div class="chat-header-avatar">🏖️</div>
+    <div class="chat-header-info">
+      <h4>Atlantic Tours Assistant</h4>
+      <p id="chatStatus">Loading live data...</p>
+    </div>
+  </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-suggestions" id="chatSuggestions">
+    <button class="chat-sug" onclick="sendSug(this)">What tours are available?</button>
+    <button class="chat-sug" onclick="sendSug(this)">Weather in Galway</button>
+    <button class="chat-sug" onclick="sendSug(this)">Best cliff walks?</button>
+    <button class="chat-sug" onclick="sendSug(this)">Food tours</button>
+  </div>
+  <div class="chat-input-area">
+    <input class="chat-input" id="chatInput" placeholder="Ask about tours, weather, availability..." autocomplete="off">
+    <button class="chat-send" id="chatSend" aria-label="Send message">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script>
+/* ================================================================
+   CONFIG
+   ================================================================ */
+var SHEET_CSV_URL=CONFIG.SHEET_CSV_URL;
+var WEATHER_URL=CONFIG.WEATHER_URL;
+var OPENAI_KEY=CONFIG.OPENAI_KEY;
+var toursData=[];
+var chatOpen=false;
+var conversationHistory=[];
+var weatherCache=null;
+
+/* ================================================================
+   INTERACTIVE HERO CANVAS — particles + floating light orbs
+   ================================================================ */
+(function(){
+  var canvas=document.getElementById('heroCanvas');
+  var ctx=canvas.getContext('2d');
+  var W,H;
+  var particles=[];
+  var orbs=[];
+  var mouse={x:-1000,y:-1000};
+  var heroSection=document.getElementById('heroSection');
+
+  function resize(){
+    W=canvas.width=heroSection.offsetWidth;
+    H=canvas.height=heroSection.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize',resize);
+
+  heroSection.addEventListener('mousemove',function(e){
+    var rect=heroSection.getBoundingClientRect();
+    mouse.x=e.clientX-rect.left;
+    mouse.y=e.clientY-rect.top;
+  });
+
+  /* Particle class */
+  function Particle(){
+    this.x=Math.random()*W;
+    this.y=Math.random()*H;
+    this.vx=(Math.random()-.5)*.3;
+    this.vy=(Math.random()-.5)*.3;
+    this.r=Math.random()*2+.5;
+    this.alpha=Math.random()*.5+.1;
+    this.pulse=Math.random()*Math.PI*2;
+  }
+  Particle.prototype.update=function(){
+    this.pulse+=.02;
+    var a=this.alpha*(0.6+0.4*Math.sin(this.pulse));
+    var dx=mouse.x-this.x;
+    var dy=mouse.y-this.y;
+    var dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<200){
+      var force=(200-dist)/200;
+      this.vx-=dx/dist*force*.02;
+      this.vy-=dy/dist*force*.02;
+    }
+    this.vx*=.99;this.vy*=.99;
+    this.x+=this.vx;this.y+=this.vy;
+    if(this.x<0)this.x=W;if(this.x>W)this.x=0;
+    if(this.y<0)this.y=H;if(this.y>H)this.y=0;
+    return a;
+  };
+  Particle.prototype.draw=function(a){
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(201,168,76,'+a+')';
+    ctx.fill();
+  };
+
+  /* Floating orb class */
+  function Orb(){
+    this.x=Math.random()*W;
+    this.y=Math.random()*H;
+    this.r=Math.random()*60+20;
+    this.vx=(Math.random()-.5)*.15;
+    this.vy=(Math.random()-.5)*.15;
+    this.hue=Math.random()>.5?'201,168,76':'42,157,143';
+    this.alpha=Math.random()*.04+.01;
+    this.pulse=Math.random()*Math.PI*2;
+  }
+  Orb.prototype.update=function(){
+    this.pulse+=.008;
+    this.x+=this.vx;this.y+=this.vy;
+    if(this.x<-this.r)this.x=W+this.r;
+    if(this.x>W+this.r)this.x=-this.r;
+    if(this.y<-this.r)this.y=H+this.r;
+    if(this.y>H+this.r)this.y=-this.r;
+    var a=this.alpha*(0.7+0.3*Math.sin(this.pulse));
+    return a;
+  };
+  Orb.prototype.draw=function(a){
+    var g=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.r);
+    g.addColorStop(0,'rgba('+this.hue+','+(a*1.5)+')');
+    g.addColorStop(1,'rgba('+this.hue+',0)');
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+    ctx.fillStyle=g;
+    ctx.fill();
+  };
+
+  /* Init */
+  for(var i=0;i<80;i++)particles.push(new Particle());
+  for(var j=0;j<8;j++)orbs.push(new Orb());
+
+  function animate(){
+    ctx.clearRect(0,0,W,H);
+    /* Draw orbs */
+    for(var k=0;k<orbs.length;k++){var oa=orbs[k].update();orbs[k].draw(oa)}
+    /* Draw particles + connections */
+    for(var i=0;i<particles.length;i++){
+      var pa=particles[i].update();
+      particles[i].draw(pa);
+      for(var j=i+1;j<particles.length;j++){
+        var dx=particles[i].x-particles[j].x;
+        var dy=particles[i].y-particles[j].y;
+        var dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<120){
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x,particles[i].y);
+          ctx.lineTo(particles[j].x,particles[j].y);
+          ctx.strokeStyle='rgba(201,168,76,'+(0.08*(1-dist/120))+')';
+          ctx.lineWidth=.5;
+          ctx.stroke();
+        }
+      }
+      /* Mouse attraction line */
+      var mdx=mouse.x-particles[i].x;
+      var mdy=mouse.y-particles[i].y;
+      var mdist=Math.sqrt(mdx*mdx+mdy*mdy);
+      if(mdist<180){
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x,particles[i].y);
+        ctx.lineTo(mouse.x,mouse.y);
+        ctx.strokeStyle='rgba(201,168,76,'+(0.15*(1-mdist/180))+')';
+        ctx.lineWidth=.8;
+        ctx.stroke();
+      }
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+/* ================================================================
+   PARALLAX on hero background
+   ================================================================ */
+window.addEventListener('scroll',function(){
+  var scroll=window.scrollY;
+  var hero=document.getElementById('heroBg');
+  if(scroll<window.innerHeight){
+    hero.style.transform='translateY('+scroll*.4+'px) scale(1.05)';
+  }
+  document.getElementById('mainNav').classList.toggle('scrolled',scroll>60);
+});
+
+/* ================================================================
+   CSV PARSER
+   ================================================================ */
+function parseCSV(text){
+  var lines=text.trim().split('\n');
+  var headers=lines[0].split(',');
+  var result=[];
+  for(var i=1;i<lines.length;i++){
+    var row={};var inQuote=false;var field='';var fields=[];
+    for(var c=0;c<lines[i].length;c++){
+      var ch=lines[i][c];
+      if(ch==='"'){inQuote=!inQuote;continue}
+      if(ch===','&&!inQuote){fields.push(field);field='';continue}
+      field+=ch;
+    }
+    fields.push(field);
+    for(var h=0;h<headers.length;h++){row[headers[h].trim()]=fields[h]?fields[h].trim():''}
+    result.push(row);
+  }
+  return result;
+}
+
+/* ================================================================
+   WEATHER
+   ================================================================ */
+function wmoDesc(code){
+  var m={0:'Clear sky',1:'Mainly clear',2:'Partly cloudy',3:'Overcast',45:'Foggy',48:'Rime fog',51:'Light drizzle',53:'Drizzle',55:'Dense drizzle',61:'Light rain',63:'Moderate rain',65:'Heavy rain',71:'Light snow',73:'Snow',75:'Heavy snow',80:'Light showers',81:'Moderate showers',82:'Heavy showers',95:'Thunderstorm'};
+  return m[code]||'Variable';
+}
+function wmoEmoji(code){
+  if(code<=1)return'☀️';if(code<=2)return'⛅';if(code<=3)return'☁️';if(code<=48)return'🌫️';if(code<=57)return'🌦️';if(code<=67)return'🌧️';if(code<=77)return'❄️';if(code<=82)return'🌧️';return'⛈️';
+}
+
+function loadWeather(){
+  fetch(WEATHER_URL).then(function(r){return r.json()}).then(function(d){
+    weatherCache=d;
+    var c=d.current;
+    document.getElementById('wIcon').textContent=wmoEmoji(c.weather_code);
+    document.getElementById('wTemp').textContent=c.temperature_2m+'°C';
+    document.getElementById('wWind').textContent=c.wind_speed_10m+' km/h';
+    document.getElementById('wHumid').textContent=c.relative_humidity_2m+'%';
+    var maxRain=Math.max.apply(null,d.daily.precipitation_probability_max);
+    document.getElementById('wRain').textContent=maxRain+'%';
+    document.getElementById('wForecast').textContent='Today: '+wmoDesc(d.daily.weather_code[0])+' | Tomorrow: '+wmoDesc(d.daily.weather_code[1]);
+  }).catch(function(){});
+}
+
+/* Initial load for tour catalogue display */
+function loadToursInitial(){
+  fetch(SHEET_CSV_URL).then(function(r){return r.text()}).then(function(csv){
+    toursData=parseCSV(csv);
+    document.getElementById('statTours').textContent=toursData.length;
+    renderTours('all');
+  }).catch(function(e){console.error('Failed to load tours:',e)});
+}
+
+/* ================================================================
+   TOURS
+   ================================================================ */
+var tourImages={
+  'Cliff Walk':'https://images.unsplash.com/photo-1590012314607-cda9d9b699ae?w=600&q=75',
+  'Kayak Trip':'https://images.unsplash.com/photo-1440778303588-435521a205bc?w=600&q=75',
+  'Food Tour':'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=75',
+  'Outdoor Activity':'https://images.unsplash.com/photo-1501555088652-021faa106b9b?w=600&q=75',
+  'Cycling':'https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=600&q=75',
+  'Boat Tour':'https://images.unsplash.com/photo-1500514966906-fe245eea9344?w=600&q=75'
+};
+
+function renderTours(filter){
+  var grid=document.getElementById('toursGrid');
+  var filtered=filter==='all'?toursData:toursData.filter(function(t){return t.category===filter});
+  grid.innerHTML=filtered.map(function(t){
+    var price=parseInt(t.price_eur)||0;
+    var isJoke=price>10000;
+    var priceDisplay=isJoke?'Price on request':'€'+price;
+    var priceNote=isJoke?'':' <span>/person</span>';
+    var img=tourImages[t.category]||tourImages['Outdoor Activity'];
+    var offerBadge=t.special_offer?'<div class="tour-card-offer">'+t.special_offer+'</div>':'';
+    return '<div class="tour-card" onclick="window.location.href=\'mailto:hello@atlanticcoasttours.ie?subject=Booking: '+encodeURIComponent(t.tour_name)+'\'">'+
+      '<div class="tour-card-img" style="background-image:url(\''+img+'\')">'+
+        '<div class="tour-card-badge">'+t.category+'</div>'+offerBadge+
+      '</div>'+
+      '<div class="tour-card-body">'+
+        '<div class="tour-card-cat">'+t.category+'</div>'+
+        '<div class="tour-card-name">'+t.tour_name+'</div>'+
+        '<div class="tour-card-loc">📍 '+t.location+'</div>'+
+        '<div class="tour-card-desc">'+t.description+'</div>'+
+        '<div class="tour-card-footer">'+
+          '<div class="tour-price">'+priceDisplay+priceNote+'</div>'+
+          '<div class="tour-meta"><span>⏱ '+t.duration_hours+'h</span><span>👥 '+t.capacity+'</span></div>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+document.getElementById('tourFilters').addEventListener('click',function(e){
+  if(!e.target.classList.contains('filter-btn'))return;
+  document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active')});
+  e.target.classList.add('active');
+  renderTours(e.target.dataset.filter);
+});
+
+/* ================================================================
+   CHATBOT — OpenAI Brain + Live Data
+   ================================================================ */
+var lastDataFetch=null;
+
+/* Fetch ALL live data fresh before each AI call */
+function fetchLiveData(){
+  var statusEl=document.getElementById('chatStatus');
+  statusEl.textContent='Fetching live data...';
+  statusEl.className='loading';
+  return Promise.all([
+    fetch(SHEET_CSV_URL).then(function(r){return r.text()}).then(function(csv){
+      toursData=parseCSV(csv);
+      document.getElementById('statTours').textContent=toursData.length;
+      return toursData;
+    }),
+    fetch(WEATHER_URL).then(function(r){return r.json()}).then(function(d){
+      weatherCache=d;
+      return d;
+    })
+  ]).then(function(){
+    lastDataFetch=new Date();
+    statusEl.innerHTML='Live data · '+lastDataFetch.toLocaleTimeString('en-IE')+' · '+toursData.length+' tours';
+    statusEl.className='';
+    return {tours:toursData,weather:weatherCache};
+  }).catch(function(e){
+    statusEl.textContent='Data fetch failed — retrying...';
+    statusEl.className='loading';
+    throw e;
+  });
+}
+
+function buildSystemPrompt(){
+  var tourCount=toursData.length;
+  var tourCatalogue='CURRENT TOURS CATALOGUE ('+tourCount+' tours, live from Google Sheets — last fetched: '+lastDataFetch.toLocaleString()+'):\n\n';
+  toursData.forEach(function(t){
+    var offer=t.special_offer?' | SPECIAL OFFER: '+t.special_offer:'';
+    tourCatalogue+='- '+t.tour_name+' | Category: '+t.category+' | Location: '+t.location+' | Price: €'+t.price_eur+' | Duration: '+t.duration_hours+'h | Capacity: '+t.capacity+' | Availability: '+t.availability+' | Slots this week: '+t.slots_this_week+offer+' | '+t.description+'\n';
+  });
+
+  var weatherInfo='';
+  if(weatherCache){
+    var c=weatherCache.current;
+    weatherInfo='\n\nLIVE WEATHER IN GALWAY (real-time, fetched just now):\n- Temperature: '+c.temperature_2m+'°C\n- Conditions: '+wmoDesc(c.weather_code)+'\n- Wind: '+c.wind_speed_10m+' km/h\n- Humidity: '+c.relative_humidity_2m+'%\n- 5-day forecast: ';
+    for(var i=0;i<5;i++){
+      weatherInfo+=weatherCache.daily.time[i]+': '+wmoDesc(weatherCache.daily.weather_code[i])+' ('+weatherCache.daily.temperature_2m_min[i]+'-'+weatherCache.daily.temperature_2m_max[i]+'°C, rain '+weatherCache.daily.precipitation_probability_max[i]+'%) | ';
+    }
+  }
+
+  return 'You are a friendly, knowledgeable customer-support assistant for Atlantic Coast Tours, a luxury tour operator based in Galway, Ireland, specialising in experiences along the Wild Atlantic Way (west coast of Ireland).\n\n'+
+    'YOUR ROLE:\n'+
+    '- Help customers discover, choose, and book tours\n'+
+    '- Provide real-time weather-based recommendations\n'+
+    '- Answer questions about pricing, availability, locations, duration\n'+
+    '- Give local tips, hidden gems, restaurant recommendations\n'+
+    '- Be warm, enthusiastic, and professional\n'+
+    '- Use the tour data below to give accurate, up-to-date answers\n'+
+    '- If asked about weather, use the live weather data below\n'+
+    '- If a tour is fully booked (0 slots), suggest alternatives\n'+
+    '- For booking, direct them to email hello@atlanticcoasttours.ie or call +353 91 123 4567\n'+
+    '- Keep responses concise but helpful\n'+
+    '- Use markdown formatting: **bold** for tour names, bullet points for lists\n'+
+    '- The data you have is LIVE from Google Sheets — always trust it as the source of truth\n\n'+
+    'COMPANY INFO:\n'+
+    '- Name: Atlantic Coast Tours\n'+
+    '- Based: Spanish Arch, Galway, Ireland\n'+
+    '- Contact: hello@atlanticcoasttours.ie | +353 91 123 4567\n'+
+    '- Counties covered: Galway, Clare, Mayo\n'+
+    '- All tours include expert local guides\n'+
+    '\n'+tourCatalogue+
+    weatherInfo+
+    '\n\nIMPORTANT: Always use the tour data above for your answers. Do not make up tour names or prices. If someone asks about a tour not in the list, say you don\'t have that one but suggest similar alternatives. The data above is LIVE and current.';
+}
+
+/* Chatbot toggle */
+document.getElementById('chatToggle').addEventListener('click',function(){
+  chatOpen=!chatOpen;
+  this.classList.toggle('open',chatOpen);
+  document.getElementById('chatPanel').classList.toggle('open',chatOpen);
+  if(chatOpen&&conversationHistory.length===0){
+    if(toursData.length>0){
+      addBotMessage('Welcome to Atlantic Coast Tours! 🌊 I\'m your AI-powered assistant for the Wild Atlantic Way.\n\nI have **'+toursData.length+' live tours** from our catalogue and **real-time weather** for Galway.\n\nEverything I tell you is backed by live data. Ask me anything!');
+    }else{
+      fetchLiveData().then(function(){
+        addBotMessage('Welcome to Atlantic Coast Tours! 🌊 I\'m your AI-powered assistant for the Wild Atlantic Way.\n\nI just loaded **'+toursData.length+' live tours** from our catalogue and **real-time weather** for Galway.\n\nEverything I tell you is backed by live data. Ask me anything!');
+      });
+    }
+  }
+  if(chatOpen)document.getElementById('chatInput').focus();
+});
+
+/* Chat input */
+document.getElementById('chatInput').addEventListener('keydown',function(e){if(e.key==='Enter')sendChat()});
+document.getElementById('chatSend').addEventListener('click',sendChat);
+
+function sendSug(btn){
+  document.getElementById('chatInput').value=btn.textContent;
+  sendChat();
+}
+
+function sendChat(){
+  var input=document.getElementById('chatInput');
+  var msg=input.value.trim();
+  if(!msg)return;
+  input.value='';
+  addUserMessage(msg);
+  showTyping();
+  /* Fetch FRESH live data first, then call OpenAI */
+  fetchLiveData().then(function(){
+    return callOpenAI(msg);
+  }).then(function(reply){
+    removeTyping();
+    addBotMessage(reply);
+  }).catch(function(err){
+    removeTyping();
+    addBotMessage('I\'m having trouble connecting to my brain right now. Please try again in a moment! 🔄');
+    console.error('OpenAI error:',err);
+  });
+}
+
+function addUserMessage(text){
+  var div=document.createElement('div');div.className='chat-msg user';
+  div.innerHTML='<div class="chat-msg-bubble">'+escHtml(text)+'</div><div class="chat-msg-time">'+timeNow()+'</div>';
+  document.getElementById('chatMessages').appendChild(div);
+  scrollChat();
+  conversationHistory.push({role:'user',content:text});
+}
+
+function addBotMessage(text){
+  var div=document.createElement('div');div.className='chat-msg bot';
+  div.innerHTML='<div class="chat-msg-bubble">'+formatMsg(text)+'</div><div class="chat-msg-time">'+timeNow()+'</div>';
+  document.getElementById('chatMessages').appendChild(div);
+  scrollChat();
+  conversationHistory.push({role:'assistant',content:text});
+}
+
+function showTyping(){
+  var div=document.createElement('div');div.className='chat-msg bot';div.id='typingIndicator';
+  div.innerHTML='<div class="chat-typing"><span></span><span></span><span></span></div>';
+  document.getElementById('chatMessages').appendChild(div);
+  scrollChat();
+}
+
+function removeTyping(){var el=document.getElementById('typingIndicator');if(el)el.remove()}
+function scrollChat(){var c=document.getElementById('chatMessages');c.scrollTop=c.scrollHeight}
+function timeNow(){return new Date().toLocaleTimeString('en-IE',{hour:'2-digit',minute:'2-digit'})}
+function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}
+function formatMsg(text){return text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>').replace(/• /g,'&bull; ')}
+
+/* ================================================================
+   OpenAI API CALL
+   ================================================================ */
+function callOpenAI(userMessage){
+  /* Build messages array with system prompt + conversation */
+  var systemPrompt=buildSystemPrompt();
+  var messages=[{role:'system',content:systemPrompt}];
+  /* Add conversation history (last 20 messages for context) */
+  var recent=conversationHistory.slice(-20);
+  messages=messages.concat(recent);
+
+  return fetch('https://api.openai.com/v1/chat/completions',{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'Authorization':'Bearer '+OPENAI_KEY
+    },
+    body:JSON.stringify({
+      model:'gpt-4o-mini',
+      messages:messages,
+      max_tokens:600,
+      temperature:0.7
+    })
+  }).then(function(r){
+    if(!r.ok)throw new Error('API error: '+r.status);
+    return r.json();
+  }).then(function(data){
+    return data.choices[0].message.content;
+  });
+}
+
+/* ================================================================
+   INIT
+   ================================================================ */
+/* Fetch initial data on page load */
+loadWeather();
+loadToursInitial();
+/* Auto-refresh tours every 2 min (picks up Google Sheets changes) */
+setInterval(function(){
+  fetchLiveData().then(function(){renderTours('all')});
+},120000);
+/* Auto-refresh weather every 10 min */
+setInterval(loadWeather,600000);
+
+/* Smooth scroll */
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    e.preventDefault();
+    var target=document.querySelector(this.getAttribute('href'));
+    if(target)target.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+</script>
+</body>
+</html>
