@@ -102,21 +102,49 @@
 
     /* FEATURES */
     .features{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:48px}
-    .feature{padding:36px;background:var(--navy-light);border:1px solid rgba(201,168,76,.06);border-radius:8px;transition:all .3s}
+    .feature{background:var(--navy-light);border:1px solid rgba(201,168,76,.06);border-radius:8px;overflow:hidden;transition:all .3s}
     .feature:hover{border-color:rgba(201,168,76,.15);transform:translateY(-3px)}
-    .feature-icon{font-size:32px;margin-bottom:16px}
+    .feature-img{width:100%;height:180px;object-fit:cover;display:block}
+    .feature-body{padding:28px 28px 32px}
+    .feature-icon{font-size:28px;margin-bottom:12px}
     .feature-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--cream);margin-bottom:8px}
     .feature-desc{font-size:13px;color:var(--text-dim);line-height:1.7}
 
     /* TESTIMONIALS */
     .testimonials{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;margin-top:48px}
     .testimonial{padding:32px;background:var(--navy-light);border:1px solid rgba(201,168,76,.06);border-radius:8px}
-    .testimonial-stars{color:var(--gold);font-size:14px;margin-bottom:12px;letter-spacing:2px}
+    .testimonial-header{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+    .testimonial-avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid rgba(201,168,76,.2)}
+    .testimonial-info{display:flex;flex-direction:column;gap:2px}
+    .testimonial-author{font-size:13px;color:var(--cream);font-weight:500}
+    .testimonial-loc{font-size:11px;color:var(--text-dim)}
+    .testimonial-stars{color:var(--gold);font-size:14px;letter-spacing:2px}
     .testimonial-text{font-size:14px;color:var(--text);line-height:1.7;font-style:italic;margin-bottom:16px}
-    .testimonial-author{font-size:12px;color:var(--gold);font-weight:500}
+
+    /* AWARDS */
+    .awards{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px}
+    .award-card{text-align:center;padding:36px 20px;background:var(--navy-light);border:1px solid rgba(201,168,76,.08);border-radius:8px;transition:all .3s}
+    .award-card:hover{border-color:rgba(201,168,76,.2);transform:translateY(-2px)}
+    .award-icon{font-size:40px;margin-bottom:14px;display:block}
+    .award-title{font-family:'Playfair Display',serif;font-size:16px;color:var(--cream);margin-bottom:6px}
+    .award-year{font-size:11px;color:var(--gold);letter-spacing:.08em;font-weight:500;margin-bottom:8px}
+    .award-desc{font-size:12px;color:var(--text-dim);line-height:1.6}
+
+    /* PRESS BAR */
+    .press-bar{padding:48px;border-top:1px solid rgba(201,168,76,.06);border-bottom:1px solid rgba(201,168,76,.06);text-align:center}
+    .press-tag{font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--text-dim);margin-bottom:28px;font-weight:500}
+    .press-logos{display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;opacity:.5}
+    .press-logo{font-family:'Playfair Display',serif;font-size:16px;color:var(--cream);letter-spacing:.02em;font-style:italic;transition:opacity .3s}
+    .press-logo:hover{opacity:1}
+    .press-logo span{color:var(--gold);font-style:normal}
 
     /* FOOTER */
     footer{padding:60px 48px 30px;border-top:1px solid rgba(201,168,76,.08);background:var(--navy-light)}
+    .footer-awards{display:flex;align-items:center;justify-content:center;gap:36px;margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid rgba(201,168,76,.06);flex-wrap:wrap}
+    .footer-award{display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.6;transition:opacity .3s}
+    .footer-award:hover{opacity:1}
+    .footer-award-icon{font-size:28px}
+    .footer-award-text{font-size:10px;color:var(--text-dim);letter-spacing:.06em;text-transform:uppercase}
     .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
     .footer-brand p{font-size:13px;color:var(--text-dim);line-height:1.7;margin-top:12px}
     .footer-col h4{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;font-family:'Inter',sans-serif;font-weight:600}
@@ -184,6 +212,9 @@
       section{padding:60px 20px}
       .stats{grid-template-columns:repeat(2,1fr);padding:40px 20px}
       .features{grid-template-columns:1fr}
+      .awards{grid-template-columns:repeat(2,1fr)}
+      .press-logos{gap:24px}
+      .footer-awards{gap:20px}
       .footer-grid{grid-template-columns:1fr 1fr}
       .weather-bar{padding:12px 20px;gap:16px}
       .chat-panel{right:12px;bottom:88px;width:calc(100vw - 24px);height:calc(100vh - 120px)}
@@ -202,6 +233,7 @@
     <a href="#why">Why Us</a>
     <a href="#weather">Weather</a>
     <a href="#testimonials">Reviews</a>
+    <a href="#awards">Awards</a>
     <a class="nav-cta" href="mailto:hello@atlanticcoasttours.ie">Book Now</a>
   </div>
 </nav>
@@ -278,12 +310,12 @@
   <h2 class="section-title">Not Just Tours. <em style="font-style:italic;color:var(--gold);font-weight:400">Memories.</em></h2>
   <p class="section-sub">Every detail is considered so you can simply show up and be amazed.</p>
   <div class="features">
-    <div class="feature"><div class="feature-icon">🌊</div><h3 class="feature-title">Local Expertise</h3><p class="feature-desc">Every guide is a local with deep knowledge of the land, stories, and hidden spots tourists never find.</p></div>
-    <div class="feature"><div class="feature-icon">🌿</div><h3 class="feature-title">Small Groups</h3><p class="feature-desc">Intimate group sizes mean personal attention, real connections, and experiences that feel private.</p></div>
-    <div class="feature"><div class="feature-icon">⭐</div><h3 class="feature-title">Premium Quality</h3><p class="feature-desc">Top-tier equipment, handpicked venues, and seamless logistics from pickup to drop-off.</p></div>
-    <div class="feature"><div class="feature-icon">🗺️</div><h3 class="feature-title">Wild Atlantic Way</h3><p class="feature-desc">We specialise in the west of Ireland — Galway, Clare, and Mayo — the most dramatic stretch of the coast.</p></div>
-    <div class="feature"><div class="feature-icon">🍽️</div><h3 class="feature-title">Wild Food</h3><p class="feature-desc">Oysters, seaweed, artisan cheese — taste the Atlantic through foraging walks and island food tours.</p></div>
-    <div class="feature"><div class="feature-icon">🚐</div><h3 class="feature-title">Door-to-Door</h3><p class="feature-desc">Pickup from your hotel or B&B. No stress, no parking, no maps — just adventure from the first minute.</p></div>
+    <div class="feature"><img class="feature-img" src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80" alt="Local guide with group"><div class="feature-body"><div class="feature-icon">🌊</div><h3 class="feature-title">Local Expertise</h3><p class="feature-desc">Every guide is a local with deep knowledge of the land, stories, and hidden spots tourists never find.</p></div></div>
+    <div class="feature"><img class="feature-img" src="https://images.unsplash.com/photo-1517483000871-1dbf64a6e1c6?w=600&q=80" alt="Small intimate group"><div class="feature-body"><div class="feature-icon">🌿</div><h3 class="feature-title">Small Groups</h3><p class="feature-desc">Intimate group sizes mean personal attention, real connections, and experiences that feel private.</p></div></div>
+    <div class="feature"><img class="feature-img" src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80" alt="Premium adventure"><div class="feature-body"><div class="feature-icon">⭐</div><h3 class="feature-title">Premium Quality</h3><p class="feature-desc">Top-tier equipment, handpicked venues, and seamless logistics from pickup to drop-off.</p></div></div>
+    <div class="feature"><img class="feature-img" src="https://images.pexels.com/photos/2382681/pexels-photo-2382681.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="Wild Atlantic Way"><div class="feature-body"><div class="feature-icon">🗺️</div><h3 class="feature-title">Wild Atlantic Way</h3><p class="feature-desc">We specialise in the west of Ireland — Galway, Clare, and Mayo — the most dramatic stretch of the coast.</p></div></div>
+    <div class="feature"><img class="feature-img" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" alt="Wild food tasting"><div class="feature-body"><div class="feature-icon">🍽️</div><h3 class="feature-title">Wild Food</h3><p class="feature-desc">Oysters, seaweed, artisan cheese — taste the Atlantic through foraging walks and island food tours.</p></div></div>
+    <div class="feature"><img class="feature-img" src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=600&q=80" alt="Door-to-door transport"><div class="feature-body"><div class="feature-icon">🚐</div><h3 class="feature-title">Door-to-Door</h3><p class="feature-desc">Pickup from your hotel or B&B. No stress, no parking, no maps — just adventure from the first minute.</p></div></div>
   </div>
 </section>
 
@@ -292,15 +324,84 @@
   <div class="section-tag">Guest Reviews</div>
   <h2 class="section-title">What People Say</h2>
   <div class="testimonials">
-    <div class="testimonial"><div class="testimonial-stars">★★★★★</div><p class="testimonial-text">"The Cliffs of Moher walk was incredible. Our guide knew every bird colony and shared stories we'd never find in a guidebook."</p><div class="testimonial-author">— Sarah M., London</div></div>
-    <div class="testimonial"><div class="testimonial-stars">★★★★★</div><p class="testimonial-text">"Kayaking Killary Fjord at sunset was the highlight of our entire Ireland trip. Absolutely magical."</p><div class="testimonial-author">— James K., New York</div></div>
-    <div class="testimonial"><div class="testimonial-stars">★★★★★</div><p class="testimonial-text">"The food tour in Galway was exceptional. We tasted things we didn't know existed. The oyster tasting alone was worth it."</p><div class="testimonial-author">— Emily R., Sydney</div></div>
-    <div class="testimonial"><div class="testimonial-stars">★★★★★</div><p class="testimonial-text">"Small group, personal attention, stunning scenery. This is how travel should be done."</p><div class="testimonial-author">— Marco P., Milan</div></div>
+    <div class="testimonial">
+      <div class="testimonial-header"><img class="testimonial-avatar" src="https://i.pravatar.cc/96?img=1" alt="Sarah M."><div class="testimonial-info"><div class="testimonial-author">Sarah M.</div><div class="testimonial-loc">London, UK</div></div></div>
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"The Cliffs of Moher walk was incredible. Our guide knew every bird colony and shared stories we'd never find in a guidebook."</p>
+    </div>
+    <div class="testimonial">
+      <div class="testimonial-header"><img class="testimonial-avatar" src="https://i.pravatar.cc/96?img=3" alt="James K."><div class="testimonial-info"><div class="testimonial-author">James K.</div><div class="testimonial-loc">New York, USA</div></div></div>
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Kayaking Killary Fjord at sunset was the highlight of our entire Ireland trip. Absolutely magical."</p>
+    </div>
+    <div class="testimonial">
+      <div class="testimonial-header"><img class="testimonial-avatar" src="https://i.pravatar.cc/96?img=5" alt="Emily R."><div class="testimonial-info"><div class="testimonial-author">Emily R.</div><div class="testimonial-loc">Sydney, Australia</div></div></div>
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"The food tour in Galway was exceptional. We tasted things we didn't know existed. The oyster tasting alone was worth it."</p>
+    </div>
+    <div class="testimonial">
+      <div class="testimonial-header"><img class="testimonial-avatar" src="https://i.pravatar.cc/96?img=8" alt="Marco P."><div class="testimonial-info"><div class="testimonial-author">Marco P.</div><div class="testimonial-loc">Milan, Italy</div></div></div>
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Small group, personal attention, stunning scenery. This is how travel should be done."</p>
+    </div>
   </div>
 </section>
 
+<!-- AWARDS -->
+<section id="awards" style="background:var(--navy)">
+  <div class="section-tag">Recognition</div>
+  <h2 class="section-title">Award-Winning <em style="font-style:italic;color:var(--gold);font-weight:400">Experiences</em></h2>
+  <p class="section-sub">Recognised by the best in the industry for delivering unforgettable journeys along the Wild Atlantic Way.</p>
+  <div class="awards">
+    <div class="award-card">
+      <span class="award-icon">🏆</span>
+      <h3 class="award-title">Best Tour Operator</h3>
+      <div class="award-year">Irish Travel Industry Awards 2025</div>
+      <p class="award-desc">Winner of Best Luxury Tour Operator — Ireland</p>
+    </div>
+    <div class="award-card">
+      <span class="award-icon">⭐</span>
+      <h3 class="award-title">Travellers' Choice</h3>
+      <div class="award-year">TripAdvisor 2024 & 2025</div>
+      <p class="award-desc">Top-rated tour experience on the Wild Atlantic Way</p>
+    </div>
+    <div class="award-card">
+      <span class="award-icon">🌿</span>
+      <h3 class="award-title">Sustainable Tourism</h3>
+      <div class="award-year">Green Tourism Ireland 2025</div>
+      <p class="award-desc">Gold standard for eco-friendly travel practices</p>
+    </div>
+    <div class="award-card">
+      <span class="award-icon">🎖️</span>
+      <h3 class="award-title">Condé Nast Recommended</h3>
+      <div class="award-year">Condé Nast Traveller 2025</div>
+      <p class="award-desc">Listed among Ireland's top specialist tour operators</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS BAR -->
+<div class="press-bar">
+  <div class="press-tag">As Featured In</div>
+  <div class="press-logos">
+    <span class="press-logo">Condé Nast <span>Traveller</span></span>
+    <span class="press-logo">The <span>Irish Times</span></span>
+    <span class="press-logo">National <span>Geographic</span></span>
+    <span class="press-logo">Fodor's <span>Travel</span></span>
+    <span class="press-logo">Lonely <span>Planet</span></span>
+    <span class="press-logo">The <span>Guardian</span></span>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
+  <div class="footer-awards">
+    <div class="footer-award"><span class="footer-award-icon">🏆</span><span class="footer-award-text">Irish Travel Awards</span></div>
+    <div class="footer-award"><span class="footer-award-icon">⭐</span><span class="footer-award-text">TripAdvisor Choice</span></div>
+    <div class="footer-award"><span class="footer-award-icon">🌿</span><span class="footer-award-text">Green Tourism Gold</span></div>
+    <div class="footer-award"><span class="footer-award-icon">🎖️</span><span class="footer-award-text">Condé Nast Recommended</span></div>
+    <div class="footer-award"><span class="footer-award-icon">🛡️</span><span class="footer-award-text">Fully Licensed & Insured</span></div>
+  </div>
   <div class="footer-grid">
     <div class="footer-brand"><div class="nav-logo">Atlantic Coast <span>Tours</span></div><p>Curated luxury experiences along Ireland's Wild Atlantic Way. Based in Galway, exploring the west coast.</p></div>
     <div class="footer-col"><h4>Tours</h4><a href="#tours">Cliff Walks</a><a href="#tours">Kayaking</a><a href="#tours">Food Tours</a><a href="#tours">Boat Tours</a></div>
