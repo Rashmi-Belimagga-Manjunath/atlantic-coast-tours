@@ -73,10 +73,15 @@
     .section-sub{font-size:15px;color:var(--text-dim);max-width:560px;font-weight:300;line-height:1.7}
 
     /* STATS */
-    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding:80px 48px;border-top:1px solid rgba(201,168,76,.08);border-bottom:1px solid rgba(201,168,76,.08)}
-    .stat{text-align:center}
-    .stat-num{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);color:var(--gold);font-weight:700}
-    .stat-label{font-size:12px;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:0;background:var(--navy-light);border-top:1px solid rgba(201,168,76,.08);border-bottom:1px solid rgba(201,168,76,.08);position:relative;overflow:hidden}
+    .stats::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.03) 0%,transparent 50%,rgba(42,157,143,.03) 100%)}
+    .stat{padding:48px 24px;text-align:center;position:relative;border-right:1px solid rgba(201,168,76,.06);transition:background .3s}
+    .stat:last-child{border-right:none}
+    .stat:hover{background:rgba(201,168,76,.04)}
+    .stat-icon{font-size:32px;margin-bottom:12px;display:block;opacity:.8}
+    .stat-num{font-family:'Playfair Display',serif;font-size:clamp(36px,4vw,56px);color:var(--gold);font-weight:700;line-height:1;margin-bottom:8px}
+    .stat-label{font-size:11px;color:var(--text-dim);letter-spacing:.12em;text-transform:uppercase;font-weight:500}
+    .stat-sub{font-size:12px;color:var(--text-dim);margin-top:6px;font-style:italic;opacity:.7}
 
     /* TOURS */
     .tours-filter{display:flex;gap:12px;margin:40px 0 32px;flex-wrap:wrap}
@@ -132,7 +137,7 @@
     .awards{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px}
     .award-card{text-align:center;padding:36px 20px;background:var(--navy-light);border:1px solid rgba(201,168,76,.08);border-radius:8px;transition:all .3s}
     .award-card:hover{border-color:rgba(201,168,76,.2);transform:translateY(-2px)}
-    .award-icon{font-size:40px;margin-bottom:14px;display:block}
+    .award-img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid rgba(201,168,76,.3);margin-bottom:14px;display:block;margin-left:auto;margin-right:auto}
     .award-title{font-family:'Playfair Display',serif;font-size:16px;color:var(--cream);margin-bottom:6px}
     .award-year{font-size:11px;color:var(--gold);letter-spacing:.08em;font-weight:500;margin-bottom:8px}
     .award-desc{font-size:12px;color:var(--text-dim);line-height:1.6}
@@ -193,7 +198,7 @@
     .footer-awards{display:flex;align-items:center;justify-content:center;gap:36px;margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid rgba(201,168,76,.06);flex-wrap:wrap}
     .footer-award{display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.6;transition:opacity .3s}
     .footer-award:hover{opacity:1}
-    .footer-award-icon{font-size:28px}
+    .footer-award-img{width:36px;height:36px;border-radius:50%;object-fit:cover;border:1px solid rgba(201,168,76,.3)}
     .footer-award-text{font-size:10px;color:var(--text-dim);letter-spacing:.06em;text-transform:uppercase}
     .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
     .footer-brand p{font-size:13px;color:var(--text-dim);line-height:1.7;margin-top:12px}
@@ -320,18 +325,18 @@
 <!-- TICKER -->
 <div class="ticker">
   <div class="ticker-inner">
-    <span class="ticker-item">🏆 Best Tour Operator — Irish Travel Awards 2025</span>
-    <span class="ticker-item">⭐ 4.9/5 TripAdvisor Rating</span>
-    <span class="ticker-item">🌿 100% Carbon Neutral Tours</span>
-    <span class="ticker-item">🎖️ Condé Nast Traveller Recommended</span>
-    <span class="ticker-item">🚐 Door-to-Door Pickup</span>
-    <span class="ticker-item">👥 Small Groups, Big Adventures</span>
-    <span class="ticker-item">🏆 Best Tour Operator — Irish Travel Awards 2025</span>
-    <span class="ticker-item">⭐ 4.9/5 TripAdvisor Rating</span>
-    <span class="ticker-item">🌿 100% Carbon Neutral Tours</span>
-    <span class="ticker-item">🎖️ Condé Nast Traveller Recommended</span>
-    <span class="ticker-item">🚐 Door-to-Door Pickup</span>
-    <span class="ticker-item">👥 Small Groups, Big Adventures</span>
+    <span class="ticker-item">Best Tour Operator — Irish Travel Awards 2025</span>
+    <span class="ticker-item">4.9/5 TripAdvisor Rating</span>
+    <span class="ticker-item">100% Carbon Neutral Tours</span>
+    <span class="ticker-item">Condé Nast Traveller Recommended</span>
+    <span class="ticker-item">Door-to-Door Pickup</span>
+    <span class="ticker-item">Small Groups, Big Adventures</span>
+    <span class="ticker-item">Best Tour Operator — Irish Travel Awards 2025</span>
+    <span class="ticker-item">4.9/5 TripAdvisor Rating</span>
+    <span class="ticker-item">100% Carbon Neutral Tours</span>
+    <span class="ticker-item">Condé Nast Traveller Recommended</span>
+    <span class="ticker-item">Door-to-Door Pickup</span>
+    <span class="ticker-item">Small Groups, Big Adventures</span>
   </div>
 </div>
 
@@ -431,11 +436,11 @@
   <h2 class="section-title">Not Just Tours. <em style="font-style:italic;color:var(--gold);font-weight:400">Memories.</em></h2>
   <p class="section-sub">Every detail is considered so you can simply show up and be amazed.</p>
   <div class="features">
-    <div class="feature"><div class="feature-inner"><div class="feature-front"><img class="feature-img" src="https://images.pexels.com/photos/12815001/pexels-photo-12815001.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="Local guide"><div class="feature-front-body"><span class="feature-icon">🌊</span><h3 class="feature-title">Local Expertise</h3><div class="feature-tagline">Hidden spots tourists never find</div></div></div><div class="feature-back"><span class="feature-icon">🌊</span><h4>Local Expertise</h4><p>Every guide is a local with deep knowledge of the land, stories, and hidden spots tourists never find. We don't follow guidebooks — we write them.</p></div></div></div>
-    <div class="feature"><div class="feature-inner"><div class="feature-front"><img class="feature-img" src="https://images.pexels.com/photos/19064882/pexels-photo-19064882.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="Small group"><div class="feature-front-body"><span class="feature-icon">🌿</span><h3 class="feature-title">Small Groups</h3><div class="feature-tagline">Personal attention, real connections</div></div></div><div class="feature-back"><span class="feature-icon">🌿</span><h4>Small Groups</h4><p>Intimate group sizes mean personal attention, real connections, and experiences that feel private. No crowds, no rushed schedules.</p></div></div></div>
+    <div class="feature"><div class="feature-inner"><div class="feature-front"><img class="feature-img" src="https://images.pexels.com/photos/3847508/pexels-photo-3847508.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="Local guide"><div class="feature-front-body"><span class="feature-icon">🌊</span><h3 class="feature-title">Local Expertise</h3><div class="feature-tagline">Hidden spots tourists never find</div></div></div><div class="feature-back"><span class="feature-icon">🌊</span><h4>Local Expertise</h4><p>Every guide is a local with deep knowledge of the land, stories, and hidden spots tourists never find. We don't follow guidebooks — we write them.</p></div></div></div>
+    <div class="feature"><div class="feature-inner"><div class="feature-front"><img class="feature-img" src="https://images.pexels.com/photos/11724800/pexels-photo-11724800.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="Small group hiking"><div class="feature-front-body"><span class="feature-icon">🌿</span><h3 class="feature-title">Small Groups</h3><div class="feature-tagline">Personal attention, real connections</div></div></div><div class="feature-back"><span class="feature-icon">🌿</span><h4>Small Groups</h4><p>Intimate group sizes mean personal attention, real connections, and experiences that feel private. No crowds, no rushed schedules.</p></div></div></div>
     <div class="feature"><div class="feature-inner"><div class="feature-front"><img class="feature-img" src="https://images.pexels.com/photos/10428433/pexels-photo-10428433.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="Premium quality"><div class="feature-front-body"><span class="feature-icon">⭐</span><h3 class="feature-title">Premium Quality</h3><div class="feature-tagline">Top-tier equipment & venues</div></div></div><div class="feature-back"><span class="feature-icon">⭐</span><h4>Premium Quality</h4><p>Top-tier equipment, handpicked venues, and seamless logistics from pickup to drop-off. Every detail is curated for comfort.</p></div></div></div>
     <div class="feature"><div class="feature-inner"><div class="feature-front"><img class="feature-img" src="https://images.pexels.com/photos/2881390/pexels-photo-2881390.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="Wild Atlantic Way"><div class="feature-front-body"><span class="feature-icon">🗺️</span><h3 class="feature-title">Wild Atlantic Way</h3><div class="feature-tagline">Galway, Clare & Mayo</div></div></div><div class="feature-back"><span class="feature-icon">🗺️</span><h4>Wild Atlantic Way</h4><p>We specialise in the west of Ireland — Galway, Clare, and Mayo — the most dramatic stretch of the coast. 2,500km of pure wonder.</p></div></div></div>
-    <div class="feature"><div class="feature-inner"><div class="feature-front"><img class="feature-img" src="https://images.pexels.com/photos/12000233/pexels-photo-12000233.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="Wild food"><div class="feature-front-body"><span class="feature-icon">🍽️</span><h3 class="feature-title">Wild Food</h3><div class="feature-tagline">Taste the Atlantic</div></div></div><div class="feature-back"><span class="feature-icon">🍽️</span><h4>Wild Food</h4><p>Oysters, seaweed, artisan cheese — taste the Atlantic through foraging walks and island food tours. Fresh from ocean to plate.</p></div></div></div>
+    <div class="feature"><div class="feature-inner"><div class="feature-front"><img class="feature-img" src="https://images.pexels.com/photos/2647936/pexels-photo-2647936.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="Wild food"><div class="feature-front-body"><span class="feature-icon">🍽️</span><h3 class="feature-title">Wild Food</h3><div class="feature-tagline">Taste the Atlantic</div></div></div><div class="feature-back"><span class="feature-icon">🍽️</span><h4>Wild Food</h4><p>Oysters, seaweed, artisan cheese — taste the Atlantic through foraging walks and island food tours. Fresh from ocean to plate.</p></div></div></div>
     <div class="feature"><div class="feature-inner"><div class="feature-front"><img class="feature-img" src="https://images.pexels.com/photos/12000250/pexels-photo-12000250.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="Door-to-door"><div class="feature-front-body"><span class="feature-icon">🚐</span><h3 class="feature-title">Door-to-Door</h3><div class="feature-tagline">Adventure from the first minute</div></div></div><div class="feature-back"><span class="feature-icon">🚐</span><h4>Door-to-Door</h4><p>Pickup from your hotel or B&B. No stress, no parking, no maps — just adventure from the first minute to the last.</p></div></div></div>
   </div>
 </section>
@@ -516,25 +521,25 @@
   <p class="section-sub">Recognised by the best in the industry for delivering unforgettable journeys along the Wild Atlantic Way.</p>
   <div class="awards">
     <div class="award-card">
-      <span class="award-icon">🏆</span>
+      <img class="award-img" src="https://images.pexels.com/photos/31882928/pexels-photo-31882928.jpeg?auto=compress&cs=tinysrgb&w=120&q=80" alt="Trophy award">
       <h3 class="award-title">Best Tour Operator</h3>
       <div class="award-year">Irish Travel Industry Awards 2025</div>
       <p class="award-desc">Winner of Best Luxury Tour Operator — Ireland</p>
     </div>
     <div class="award-card">
-      <span class="award-icon">⭐</span>
+      <img class="award-img" src="https://images.pexels.com/photos/32609063/pexels-photo-32609063.jpeg?auto=compress&cs=tinysrgb&w=120&q=80" alt="Five star rating">
       <h3 class="award-title">Travellers' Choice</h3>
       <div class="award-year">TripAdvisor 2024 & 2025</div>
       <p class="award-desc">Top-rated tour experience on the Wild Atlantic Way</p>
     </div>
     <div class="award-card">
-      <span class="award-icon">🌿</span>
+      <img class="award-img" src="https://images.pexels.com/photos/3817676/pexels-photo-3817676.jpeg?auto=compress&cs=tinysrgb&w=120&q=80" alt="Sustainable green tourism">
       <h3 class="award-title">Sustainable Tourism</h3>
       <div class="award-year">Green Tourism Ireland 2025</div>
       <p class="award-desc">Gold standard for eco-friendly travel practices</p>
     </div>
     <div class="award-card">
-      <span class="award-icon">🎖️</span>
+      <img class="award-img" src="https://images.pexels.com/photos/3278215/pexels-photo-3278215.jpeg?auto=compress&cs=tinysrgb&w=120&q=80" alt="Luxury travel editorial">
       <h3 class="award-title">Condé Nast Recommended</h3>
       <div class="award-year">Condé Nast Traveller 2025</div>
       <p class="award-desc">Listed among Ireland's top specialist tour operators</p>
@@ -558,11 +563,11 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-awards">
-    <div class="footer-award"><span class="footer-award-icon">🏆</span><span class="footer-award-text">Irish Travel Awards</span></div>
-    <div class="footer-award"><span class="footer-award-icon">⭐</span><span class="footer-award-text">TripAdvisor Choice</span></div>
-    <div class="footer-award"><span class="footer-award-icon">🌿</span><span class="footer-award-text">Green Tourism Gold</span></div>
-    <div class="footer-award"><span class="footer-award-icon">🎖️</span><span class="footer-award-text">Condé Nast Recommended</span></div>
-    <div class="footer-award"><span class="footer-award-icon">🛡️</span><span class="footer-award-text">Fully Licensed & Insured</span></div>
+    <div class="footer-award"><img class="footer-award-img" src="https://images.pexels.com/photos/31882928/pexels-photo-31882928.jpeg?auto=compress&cs=tinysrgb&w=80&q=80" alt="Trophy"><span class="footer-award-text">Irish Travel Awards</span></div>
+    <div class="footer-award"><img class="footer-award-img" src="https://images.pexels.com/photos/32609063/pexels-photo-32609063.jpeg?auto=compress&cs=tinysrgb&w=80&q=80" alt="Stars"><span class="footer-award-text">TripAdvisor Choice</span></div>
+    <div class="footer-award"><img class="footer-award-img" src="https://images.pexels.com/photos/3817676/pexels-photo-3817676.jpeg?auto=compress&cs=tinysrgb&w=80&q=80" alt="Green"><span class="footer-award-text">Green Tourism Gold</span></div>
+    <div class="footer-award"><img class="footer-award-img" src="https://images.pexels.com/photos/3278215/pexels-photo-3278215.jpeg?auto=compress&cs=tinysrgb&w=80&q=80" alt="Luxury"><span class="footer-award-text">Condé Nast Recommended</span></div>
+    <div class="footer-award"><img class="footer-award-img" src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=80&q=80" alt="Shield"><span class="footer-award-text">Fully Licensed & Insured</span></div>
   </div>
   <div class="footer-grid">
     <div class="footer-brand"><div class="nav-logo">Atlantic Coast <span>Tours</span></div><p>Curated luxury experiences along Ireland's Wild Atlantic Way. Based in Galway, exploring the west coast.</p></div>
@@ -833,13 +838,49 @@ function loadToursInitial(){
    TOURS
    ================================================================ */
 var tourImages={
-  'Cliff Walk':'https://images.pexels.com/photos/2382681/pexels-photo-2382681.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
-  'Kayak Trip':'https://images.pexels.com/photos/19064882/pexels-photo-19064882.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
-  'Food Tour':'https://images.pexels.com/photos/12000233/pexels-photo-12000233.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
-  'Outdoor Activity':'https://images.pexels.com/photos/12815001/pexels-photo-12815001.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
-  'Cycling':'https://images.pexels.com/photos/10428433/pexels-photo-10428433.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
-  'Boat Tour':'https://images.pexels.com/photos/36068492/pexels-photo-36068492.jpeg?auto=compress&cs=tinysrgb&w=600&q=75'
+  'Cliff Walk':[
+    'https://images.pexels.com/photos/34002136/pexels-photo-34002136.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/32878504/pexels-photo-32878504.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/23644354/pexels-photo-23644354.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/2382681/pexels-photo-2382681.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/6126142/pexels-photo-6126142.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/33846141/pexels-photo-33846141.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/36709098/pexels-photo-36709098.jpeg?auto=compress&cs=tinysrgb&w=600&q=75'
+  ],
+  'Kayak Trip':[
+    'https://images.pexels.com/photos/7276646/pexels-photo-7276646.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/5728407/pexels-photo-5728407.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/14375564/pexels-photo-14375564.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/3860101/pexels-photo-3860101.jpeg?auto=compress&cs=tinysrgb&w=600&q=75'
+  ],
+  'Food Tour':[
+    'https://images.pexels.com/photos/33474025/pexels-photo-33474025.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/35382686/pexels-photo-35382686.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/2647936/pexels-photo-2647936.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/6953375/pexels-photo-6953375.jpeg?auto=compress&cs=tinysrgb&w=600&q=75'
+  ],
+  'Outdoor Activity':[
+    'https://images.pexels.com/photos/5728416/pexels-photo-5728416.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/163491/pexels-photo-163491.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/10428433/pexels-photo-10428433.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&w=600&q=75'
+  ],
+  'Cycling':[
+    'https://images.pexels.com/photos/33880810/pexels-photo-33880810.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/11491261/pexels-photo-11491261.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/4090318/pexels-photo-4090318.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/1007410/pexels-photo-1007410.jpeg?auto=compress&cs=tinysrgb&w=600&q=75'
+  ],
+  'Boat Tour':[
+    'https://images.pexels.com/photos/36068492/pexels-photo-36068492.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/28929794/pexels-photo-28929794.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/13521798/pexels-photo-13521798.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/73806/pexels-photo-73806.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/17938482/pexels-photo-17938482.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+    'https://images.pexels.com/photos/32537743/pexels-photo-32537743.jpeg?auto=compress&cs=tinysrgb&w=600&q=75'
+  ]
 };
+var tourImageCounters={};
 
 function renderTours(filter){
   var grid=document.getElementById('toursGrid');
@@ -849,7 +890,10 @@ function renderTours(filter){
     var isJoke=price>10000;
     var priceDisplay=isJoke?'Price on request':'€'+price;
     var priceNote=isJoke?'':' <span>/person</span>';
-    var img=tourImages[t.category]||tourImages['Outdoor Activity'];
+    var imgs=tourImages[t.category]||tourImages['Outdoor Activity'];
+    if(!tourImageCounters[t.category])tourImageCounters[t.category]=0;
+    var img=imgs[tourImageCounters[t.category]%imgs.length];
+    tourImageCounters[t.category]++;
     var offerBadge=t.special_offer?'<div class="tour-card-offer">'+t.special_offer+'</div>':'';
     return '<div class="tour-card" onclick="window.location.href=\'mailto:hello@atlanticcoasttours.ie?subject=Booking: '+encodeURIComponent(t.tour_name)+'\'">'+
       '<div class="tour-card-img" style="background-image:url(\''+img+'\')">'+
@@ -1137,8 +1181,9 @@ if(parallaxBg){
 /* HERO IMAGE SLIDESHOW */
 var heroImages=[
   'https://images.pexels.com/photos/2382681/pexels-photo-2382681.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
-  'https://images.pexels.com/photos/28558959/pexels-photo-28558959.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
+  'https://images.pexels.com/photos/6953375/pexels-photo-6953375.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
   'https://images.pexels.com/photos/35194024/pexels-photo-35194024.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
+  'https://images.pexels.com/photos/28558959/pexels-photo-28558959.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
   'https://images.pexels.com/photos/4911981/pexels-photo-4911981.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85'
 ];
 heroImages.forEach(function(src){var img=new Image();img.src=src});
