@@ -37,7 +37,7 @@
     /* HERO */
     .hero{position:relative;height:100vh;min-height:700px;display:flex;align-items:center;justify-content:center;overflow:hidden}
     .hero-canvas{position:absolute;inset:0;z-index:1}
-    .hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=1920&q=85') center/cover no-repeat;filter:brightness(.3) saturate(1.3);z-index:0}
+    .hero-bg{position:absolute;inset:0;background:url('https://images.pexels.com/photos/2382681/pexels-photo-2382681.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85') center/cover no-repeat;filter:brightness(.3) saturate(1.3);z-index:0}
     .hero-gradient{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,22,40,.3) 0%,rgba(10,22,40,.1) 30%,rgba(10,22,40,.5) 70%,var(--navy) 100%);z-index:2}
     .hero-content{position:relative;z-index:10;text-align:center;max-width:900px;padding:0 24px}
     .hero-tag{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;font-weight:500;opacity:0;animation:heroFadeUp .8s .3s forwards}
@@ -102,13 +102,20 @@
 
     /* FEATURES */
     .features{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:48px}
-    .feature{background:var(--navy-light);border:1px solid rgba(201,168,76,.06);border-radius:8px;overflow:hidden;transition:all .3s}
-    .feature:hover{border-color:rgba(201,168,76,.15);transform:translateY(-3px)}
-    .feature-img{width:100%;height:180px;object-fit:cover;display:block}
-    .feature-body{padding:28px 28px 32px}
-    .feature-icon{font-size:28px;margin-bottom:12px}
-    .feature-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--cream);margin-bottom:8px}
-    .feature-desc{font-size:13px;color:var(--text-dim);line-height:1.7}
+    .feature{height:340px;perspective:800px;cursor:pointer}
+    .feature-inner{position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
+    .feature:hover .feature-inner{transform:rotateY(180deg)}
+    .feature-front,.feature-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:8px;overflow:hidden}
+    .feature-front{background:var(--navy-light);border:1px solid rgba(201,168,76,.06)}
+    .feature-back{background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));border:1px solid rgba(201,168,76,.1);transform:rotateY(180deg);display:flex;flex-direction:column;justify-content:center;padding:32px 28px}
+    .feature-img{width:100%;height:200px;object-fit:cover;display:block}
+    .feature-front-body{padding:20px 24px}
+    .feature-icon{font-size:28px;margin-bottom:8px;display:block}
+    .feature-title{font-family:'Playfair Display',serif;font-size:17px;color:var(--cream);margin-bottom:4px}
+    .feature-tagline{font-size:12px;color:var(--gold);font-weight:500;letter-spacing:.04em}
+    .feature-back h4{font-family:'Playfair Display',serif;font-size:20px;color:var(--cream);margin-bottom:12px}
+    .feature-back p{font-size:13px;color:var(--text-dim);line-height:1.8}
+    .feature-back .feature-icon{margin-bottom:12px}
 
     /* TESTIMONIALS */
     .testimonials{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;margin-top:48px}
@@ -169,7 +176,7 @@
 
     /* PARALLAX BANNER */
     .parallax-banner{position:relative;height:400px;overflow:hidden;display:flex;align-items:center;justify-content:center}
-    .parallax-bg{position:absolute;inset:-60px;background:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80') center/cover no-repeat;filter:brightness(.25);will-change:transform}
+    .parallax-bg{position:absolute;inset:-60px;background:url('https://images.pexels.com/photos/4911981/pexels-photo-4911981.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80') center/cover no-repeat;filter:brightness(.25);will-change:transform}
     .parallax-content{position:relative;z-index:2;text-align:center;max-width:700px;padding:0 24px}
     .parallax-content h2{font-size:clamp(28px,4vw,48px);color:var(--cream);margin-bottom:16px}
     .parallax-content h2 em{font-style:italic;color:var(--gold);font-weight:400}
@@ -359,7 +366,7 @@
   <p class="section-sub">Every detail is considered so you can simply show up and be amazed. We build your perfect Irish adventure from scratch.</p>
   <div class="tailor">
     <div class="tailor-visual">
-      <img class="tailor-img" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=85" alt="Tailor-made Irish adventure">
+      <img class="tailor-img" src="https://images.pexels.com/photos/36068489/pexels-photo-36068489.jpeg?auto=compress&cs=tinysrgb&w=800&q=85" alt="Tailor-made Irish adventure">
       <div class="tailor-badge">100% Bespoke</div>
     </div>
     <div class="tailor-steps">
@@ -424,12 +431,12 @@
   <h2 class="section-title">Not Just Tours. <em style="font-style:italic;color:var(--gold);font-weight:400">Memories.</em></h2>
   <p class="section-sub">Every detail is considered so you can simply show up and be amazed.</p>
   <div class="features">
-    <div class="feature"><img class="feature-img" src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80" alt="Local guide with group"><div class="feature-body"><div class="feature-icon">🌊</div><h3 class="feature-title">Local Expertise</h3><p class="feature-desc">Every guide is a local with deep knowledge of the land, stories, and hidden spots tourists never find.</p></div></div>
-    <div class="feature"><img class="feature-img" src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=600&q=80" alt="Small intimate group"><div class="feature-body"><div class="feature-icon">🌿</div><h3 class="feature-title">Small Groups</h3><p class="feature-desc">Intimate group sizes mean personal attention, real connections, and experiences that feel private.</p></div></div>
-    <div class="feature"><img class="feature-img" src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80" alt="Premium adventure"><div class="feature-body"><div class="feature-icon">⭐</div><h3 class="feature-title">Premium Quality</h3><p class="feature-desc">Top-tier equipment, handpicked venues, and seamless logistics from pickup to drop-off.</p></div></div>
-    <div class="feature"><img class="feature-img" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Wild Atlantic Way"><div class="feature-body"><div class="feature-icon">🗺️</div><h3 class="feature-title">Wild Atlantic Way</h3><p class="feature-desc">We specialise in the west of Ireland — Galway, Clare, and Mayo — the most dramatic stretch of the coast.</p></div></div>
-    <div class="feature"><img class="feature-img" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" alt="Wild food tasting"><div class="feature-body"><div class="feature-icon">🍽️</div><h3 class="feature-title">Wild Food</h3><p class="feature-desc">Oysters, seaweed, artisan cheese — taste the Atlantic through foraging walks and island food tours.</p></div></div>
-    <div class="feature"><img class="feature-img" src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80" alt="Door-to-door transport"><div class="feature-body"><div class="feature-icon">🚐</div><h3 class="feature-title">Door-to-Door</h3><p class="feature-desc">Pickup from your hotel or B&B. No stress, no parking, no maps — just adventure from the first minute.</p></div></div>
+    <div class="feature"><div class="feature-inner"><div class="feature-front"><img class="feature-img" src="https://images.pexels.com/photos/12815001/pexels-photo-12815001.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="Local guide"><div class="feature-front-body"><span class="feature-icon">🌊</span><h3 class="feature-title">Local Expertise</h3><div class="feature-tagline">Hidden spots tourists never find</div></div></div><div class="feature-back"><span class="feature-icon">🌊</span><h4>Local Expertise</h4><p>Every guide is a local with deep knowledge of the land, stories, and hidden spots tourists never find. We don't follow guidebooks — we write them.</p></div></div></div>
+    <div class="feature"><div class="feature-inner"><div class="feature-front"><img class="feature-img" src="https://images.pexels.com/photos/19064882/pexels-photo-19064882.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="Small group"><div class="feature-front-body"><span class="feature-icon">🌿</span><h3 class="feature-title">Small Groups</h3><div class="feature-tagline">Personal attention, real connections</div></div></div><div class="feature-back"><span class="feature-icon">🌿</span><h4>Small Groups</h4><p>Intimate group sizes mean personal attention, real connections, and experiences that feel private. No crowds, no rushed schedules.</p></div></div></div>
+    <div class="feature"><div class="feature-inner"><div class="feature-front"><img class="feature-img" src="https://images.pexels.com/photos/10428433/pexels-photo-10428433.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="Premium quality"><div class="feature-front-body"><span class="feature-icon">⭐</span><h3 class="feature-title">Premium Quality</h3><div class="feature-tagline">Top-tier equipment & venues</div></div></div><div class="feature-back"><span class="feature-icon">⭐</span><h4>Premium Quality</h4><p>Top-tier equipment, handpicked venues, and seamless logistics from pickup to drop-off. Every detail is curated for comfort.</p></div></div></div>
+    <div class="feature"><div class="feature-inner"><div class="feature-front"><img class="feature-img" src="https://images.pexels.com/photos/2881390/pexels-photo-2881390.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="Wild Atlantic Way"><div class="feature-front-body"><span class="feature-icon">🗺️</span><h3 class="feature-title">Wild Atlantic Way</h3><div class="feature-tagline">Galway, Clare & Mayo</div></div></div><div class="feature-back"><span class="feature-icon">🗺️</span><h4>Wild Atlantic Way</h4><p>We specialise in the west of Ireland — Galway, Clare, and Mayo — the most dramatic stretch of the coast. 2,500km of pure wonder.</p></div></div></div>
+    <div class="feature"><div class="feature-inner"><div class="feature-front"><img class="feature-img" src="https://images.pexels.com/photos/12000233/pexels-photo-12000233.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="Wild food"><div class="feature-front-body"><span class="feature-icon">🍽️</span><h3 class="feature-title">Wild Food</h3><div class="feature-tagline">Taste the Atlantic</div></div></div><div class="feature-back"><span class="feature-icon">🍽️</span><h4>Wild Food</h4><p>Oysters, seaweed, artisan cheese — taste the Atlantic through foraging walks and island food tours. Fresh from ocean to plate.</p></div></div></div>
+    <div class="feature"><div class="feature-inner"><div class="feature-front"><img class="feature-img" src="https://images.pexels.com/photos/12000250/pexels-photo-12000250.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="Door-to-door"><div class="feature-front-body"><span class="feature-icon">🚐</span><h3 class="feature-title">Door-to-Door</h3><div class="feature-tagline">Adventure from the first minute</div></div></div><div class="feature-back"><span class="feature-icon">🚐</span><h4>Door-to-Door</h4><p>Pickup from your hotel or B&B. No stress, no parking, no maps — just adventure from the first minute to the last.</p></div></div></div>
   </div>
 </section>
 
@@ -440,7 +447,7 @@
   <p class="section-sub">From the Burren's lunar landscape to Galway's bohemian streets — every corner tells a story.</p>
   <div class="dest-gallery">
     <div class="dest-card">
-      <img src="https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=600&q=80" alt="Cliffs of Moher" loading="lazy">
+      <img src="https://images.pexels.com/photos/2382681/pexels-photo-2382681.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="Cliffs of Moher" loading="lazy">
       <div class="dest-card-overlay">
         <div class="dest-card-tag">County Clare</div>
         <div class="dest-card-name">Cliffs of Moher</div>
@@ -448,7 +455,7 @@
       <div class="dest-card-explore">Explore</div>
     </div>
     <div class="dest-card">
-      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&q=80" alt="Galway City" loading="lazy">
+      <img src="https://images.pexels.com/photos/35194024/pexels-photo-35194024.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="Galway City" loading="lazy">
       <div class="dest-card-overlay">
         <div class="dest-card-tag">County Galway</div>
         <div class="dest-card-name">Galway City</div>
@@ -456,7 +463,7 @@
       <div class="dest-card-explore">Explore</div>
     </div>
     <div class="dest-card">
-      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="The Burren" loading="lazy">
+      <img src="https://images.pexels.com/photos/12000244/pexels-photo-12000244.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="The Burren" loading="lazy">
       <div class="dest-card-overlay">
         <div class="dest-card-tag">County Clare</div>
         <div class="dest-card-name">The Burren</div>
@@ -464,7 +471,7 @@
       <div class="dest-card-explore">Explore</div>
     </div>
     <div class="dest-card">
-      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" alt="Wild Food" loading="lazy">
+      <img src="https://images.pexels.com/photos/12000250/pexels-photo-12000250.jpeg?auto=compress&cs=tinysrgb&w=600&q=80" alt="Wild Food" loading="lazy">
       <div class="dest-card-overlay">
         <div class="dest-card-tag">Food Experiences</div>
         <div class="dest-card-name">Wild Atlantic Flavours</div>
@@ -826,12 +833,12 @@ function loadToursInitial(){
    TOURS
    ================================================================ */
 var tourImages={
-  'Cliff Walk':'https://images.unsplash.com/photo-1580629905303-faaa03e0ecde?w=600&q=75',
-  'Kayak Trip':'https://images.unsplash.com/photo-1472745942893-4b9f730c7668?w=600&q=75',
-  'Food Tour':'https://images.unsplash.com/photo-1559737558-2f5a35f4523b?w=600&q=75',
-  'Outdoor Activity':'https://images.unsplash.com/photo-1501555088652-021faa106b9b?w=600&q=75',
-  'Cycling':'https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?w=600&q=75',
-  'Boat Tour':'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=75'
+  'Cliff Walk':'https://images.pexels.com/photos/2382681/pexels-photo-2382681.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+  'Kayak Trip':'https://images.pexels.com/photos/19064882/pexels-photo-19064882.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+  'Food Tour':'https://images.pexels.com/photos/12000233/pexels-photo-12000233.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+  'Outdoor Activity':'https://images.pexels.com/photos/12815001/pexels-photo-12815001.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+  'Cycling':'https://images.pexels.com/photos/10428433/pexels-photo-10428433.jpeg?auto=compress&cs=tinysrgb&w=600&q=75',
+  'Boat Tour':'https://images.pexels.com/photos/36068492/pexels-photo-36068492.jpeg?auto=compress&cs=tinysrgb&w=600&q=75'
 };
 
 function renderTours(filter){
@@ -1129,11 +1136,12 @@ if(parallaxBg){
 
 /* HERO IMAGE SLIDESHOW */
 var heroImages=[
-  'https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=1920&q=85',
-  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=85',
-  'https://images.unsplash.com/photo-1542718610-a1d656d1884c?w=1920&q=85',
-  'https://images.unsplash.com/photo-1520440902047-a99b3c279c0a?w=1920&q=85'
+  'https://images.pexels.com/photos/2382681/pexels-photo-2382681.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
+  'https://images.pexels.com/photos/28558959/pexels-photo-28558959.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
+  'https://images.pexels.com/photos/35194024/pexels-photo-35194024.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
+  'https://images.pexels.com/photos/4911981/pexels-photo-4911981.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85'
 ];
+heroImages.forEach(function(src){var img=new Image();img.src=src});
 var heroIdx=0;
 var heroBg=document.getElementById('heroBg');
 function cycleHero(){
