@@ -347,7 +347,7 @@
 <div class="weather-bar" id="weather">
   <div class="weather-item">
     <span class="wi-icon" id="wIcon">--</span>
-    <div><div class="wi-val" id="wTemp">--°C</div><div class="wi-label">Galway Now</div></div>
+    <div><div class="wi-val" id="wTemp">--°C</div><div class="wi-label">West of Ireland</div></div>
   </div>
   <div class="weather-item">
     <span class="wi-icon">💨</span>
@@ -629,14 +629,20 @@
    CONFIG
    ================================================================ */
 var SHEET_CSV_URL='https://docs.google.com/spreadsheets/d/1balBGf8QhZ5dc-RCCAPt2kcrcf6m_YRh0HL_r8bBtJw/export?format=csv&gid=120683740';
-var WEATHER_URL='https://api.open-meteo.com/v1/forecast?latitude=53.27&longitude=-9.06&current=temperature_2m,weather_code,wind_speed_10m,relative_humidity_2m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Europe/Dublin&forecast_days=5';
+var WEATHER_BASE='https://api.open-meteo.com/v1/forecast?current=temperature_2m,weather_code,wind_speed_10m,relative_humidity_2m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Europe/Dublin&forecast_days=5';
+var WEATHER_LOCS={
+  Galway:'53.27,-9.06',
+  Clare:'52.97,-9.43',
+  Mayo:'53.80,-9.52',
+  Kerry:'52.14,-10.27'
+};
 var _k1='sk-proj-',_k2='yQfYCqjSHlO1CvvaKkDqJaf65vDJ26UY',_k3='IfGQfwvzg05yCAHIWHSg-leAh7Vi-WCacK',_k4='9_FTyQK1T3BlbkFJPMBUYtsFPiK5qVzP6tMBt6f',_k5='QeZyCIp57g2dJK7h9904s4tloYulalmtfR7Xvup',_k6='S7CnRwzFODwA';
 var OPENAI_KEY=_k1+_k2+_k3+_k4+_k5+_k6;
 var CORS_PROXY='https://corsproxy.io/?url=';
 var toursData=[];
 var chatOpen=false;
 var conversationHistory=[];
-var weatherCache=null;
+var weatherCache={};
 
 /* ================================================================
    INTERACTIVE HERO CANVAS — particles + floating light orbs
@@ -817,16 +823,29 @@ function wmoEmoji(code){
 }
 
 function loadWeather(){
-  fetch(WEATHER_URL).then(function(r){return r.json()}).then(function(d){
-    weatherCache=d;
-    var c=d.current;
+  var fetches=Object.keys(WEATHER_LOCS).map(function(loc){
+    var latlon=WEATHER_LOCS[loc].split(',');
+    var url=WEATHER_BASE+'&latitude='+latlon[0]+'&longitude='+latlon[1];
+    return fetch(url).then(function(r){return r.json()}).then(function(d){
+      weatherCache[loc]=d;
+      return d;
+    });
+  });
+  Promise.all(fetches).then(function(){
+    var g=weatherCache.Galway;
+    if(!g)return;
+    var c=g.current;
     document.getElementById('wIcon').textContent=wmoEmoji(c.weather_code);
     document.getElementById('wTemp').textContent=c.temperature_2m+'°C';
     document.getElementById('wWind').textContent=c.wind_speed_10m+' km/h';
     document.getElementById('wHumid').textContent=c.relative_humidity_2m+'%';
-    var maxRain=Math.max.apply(null,d.daily.precipitation_probability_max);
+    var maxRain=0;
+    Object.keys(weatherCache).forEach(function(k){
+      var r=Math.max.apply(null,weatherCache[k].daily.precipitation_probability_max);
+      if(r>maxRain)maxRain=r;
+    });
     document.getElementById('wRain').textContent=maxRain+'%';
-    document.getElementById('wForecast').textContent='Today: '+wmoDesc(d.daily.weather_code[0])+' | Tomorrow: '+wmoDesc(d.daily.weather_code[1]);
+    document.getElementById('wForecast').textContent='Galway: '+wmoDesc(g.daily.weather_code[0])+' | West: '+wmoDesc(weatherCache.Clare.daily.weather_code[0]);
   }).catch(function(){});
 }
 
@@ -940,12 +959,15 @@ function fetchLiveData(){
       toursData=parseCSV(csv);
       document.getElementById('statTours').textContent=toursData.length;
       return toursData;
-    }),
-    fetch(WEATHER_URL).then(function(r){return r.json()}).then(function(d){
-      weatherCache=d;
-      return d;
     })
-  ]).then(function(){
+  ].concat(Object.keys(WEATHER_LOCS).map(function(loc){
+    var latlon=WEATHER_LOCS[loc].split(',');
+    var url=WEATHER_BASE+'&latitude='+latlon[0]+'&longitude='+latlon[1];
+    return fetch(url).then(function(r){return r.json()}).then(function(d){
+      weatherCache[loc]=d;
+      return d;
+    });
+  }))).then(function(){
     lastDataFetch=new Date();
     statusEl.innerHTML='Live data · '+lastDataFetch.toLocaleTimeString('en-IE')+' · '+toursData.length+' tours';
     statusEl.className='';
@@ -966,23 +988,34 @@ function buildSystemPrompt(){
   });
 
   var weatherInfo='';
-  if(weatherCache){
-    var c=weatherCache.current;
-    weatherInfo='\n\nLIVE WEATHER IN GALWAY (real-time, fetched just now):\n- Temperature: '+c.temperature_2m+'°C\n- Conditions: '+wmoDesc(c.weather_code)+'\n- Wind: '+c.wind_speed_10m+' km/h\n- Humidity: '+c.relative_humidity_2m+'%\n- 5-day forecast: ';
+  if(weatherCache.Galway){
+    weatherInfo='\n\nLIVE WEATHER ACROSS THE WEST OF IRELAND (real-time, fetched just now):\n';
+    Object.keys(WEATHER_LOCS).forEach(function(loc){
+      var w=weatherCache[loc];
+      if(!w)return;
+      var c=w.current;
+      weatherInfo+='\n📍 '+loc+': '+c.temperature_2m+'°C, '+wmoDesc(c.weather_code)+', wind '+c.wind_speed_10m+' km/h, humidity '+c.relative_humidity_2m+'%';
+    });
+    weatherInfo+='\n\n5-DAY FORECAST:\n';
     for(var i=0;i<5;i++){
-      weatherInfo+=weatherCache.daily.time[i]+': '+wmoDesc(weatherCache.daily.weather_code[i])+' ('+weatherCache.daily.temperature_2m_min[i]+'-'+weatherCache.daily.temperature_2m_max[i]+'°C, rain '+weatherCache.daily.precipitation_probability_max[i]+'%) | ';
+      weatherInfo+='\n'+weatherCache.Galway.daily.time[i]+' — ';
+      Object.keys(WEATHER_LOCS).forEach(function(loc){
+        var w=weatherCache[loc];
+        if(!w)return;
+        weatherInfo+=loc+': '+wmoDesc(w.daily.weather_code[i])+' ('+w.daily.temperature_2m_min[i]+'-'+w.daily.temperature_2m_max[i]+'°C, rain '+w.daily.precipitation_probability_max[i]+'%) | ';
+      });
     }
   }
 
-  return 'You are a friendly, knowledgeable customer-support assistant for Atlantic Coast Tours, a luxury tour operator based in Galway, Ireland, specialising in experiences along the Wild Atlantic Way (west coast of Ireland).\n\n'+
+  return     'You are a friendly, knowledgeable customer-support assistant for Atlantic Coast Tours, a luxury tour operator based in Galway, Ireland, specialising in experiences along the Wild Atlantic Way (west coast of Ireland).\n\n'+
     'YOUR ROLE:\n'+
     '- Help customers discover, choose, and book tours\n'+
-    '- Provide real-time weather-based recommendations\n'+
+    '- Provide real-time weather-based recommendations for any part of the west of Ireland\n'+
     '- Answer questions about pricing, availability, locations, duration\n'+
     '- Give local tips, hidden gems, restaurant recommendations\n'+
     '- Be warm, enthusiastic, and professional\n'+
     '- Use the tour data below to give accurate, up-to-date answers\n'+
-    '- If asked about weather, use the live weather data below\n'+
+    '- If asked about weather, you have live data for Galway, Clare, Mayo, and Kerry — use it to give location-specific answers\n'+
     '- If a tour is fully booked (0 slots), suggest alternatives\n'+
     '- For booking, direct them to email hello@atlanticcoasttours.ie or call +353 91 123 4567\n'+
     '- Keep responses concise but helpful\n'+
@@ -992,7 +1025,7 @@ function buildSystemPrompt(){
     '- Name: Atlantic Coast Tours\n'+
     '- Based: Spanish Arch, Galway, Ireland\n'+
     '- Contact: hello@atlanticcoasttours.ie | +353 91 123 4567\n'+
-    '- Counties covered: Galway, Clare, Mayo\n'+
+    '- Counties covered: Galway, Clare, Mayo, Kerry\n'+
     '- All tours include expert local guides\n'+
     '\n'+tourCatalogue+
     weatherInfo+
@@ -1008,10 +1041,10 @@ document.getElementById('chatToggle').addEventListener('click',function(){
   panel.classList.remove('minimized','fullscreen');
   if(chatOpen&&conversationHistory.length===0){
     if(toursData.length>0){
-      addBotMessage('Welcome to Atlantic Coast Tours! 🌊 I\'m your AI-powered assistant for the Wild Atlantic Way.\n\nI have **'+toursData.length+' live tours** from our catalogue and **real-time weather** for Galway.\n\nEverything I tell you is backed by live data. Ask me anything!');
+      addBotMessage('Welcome to Atlantic Coast Tours! 🌊 I\'m your AI-powered assistant for the Wild Atlantic Way.\n\nI have **'+toursData.length+' live tours** from our catalogue and **real-time weather** across Galway, Clare, Mayo, and Kerry.\n\nEverything I tell you is backed by live data. Ask me anything!');
     }else{
       fetchLiveData().then(function(){
-        addBotMessage('Welcome to Atlantic Coast Tours! 🌊 I\'m your AI-powered assistant for the Wild Atlantic Way.\n\nI just loaded **'+toursData.length+' live tours** from our catalogue and **real-time weather** for Galway.\n\nEverything I tell you is backed by live data. Ask me anything!');
+        addBotMessage('Welcome to Atlantic Coast Tours! 🌊 I\'m your AI-powered assistant for the Wild Atlantic Way.\n\nI just loaded **'+toursData.length+' live tours** from our catalogue and **real-time weather** across Galway, Clare, Mayo, and Kerry.\n\nEverything I tell you is backed by live data. Ask me anything!');
       });
     }
   }
